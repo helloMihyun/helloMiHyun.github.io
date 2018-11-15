@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="이미현">
+    <meta name="apple-mobile-web-app-title" content="" />
+    <title>관리자페이지</title>
+    <meta name="description" content="관리자페이지모음">
+<!--    <link rel="shortcut icon" type="" href="favicon.ico" /> -->
+
+    <link rel="stylesheet" type="text/css" href="css/reset_common.css" />
+    <link rel="stylesheet" type="text/css" href="css/admin_style.css" />
+    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+<!--    <script src="js/jquery-1.11.3.min.js"></script>-->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="js/calrendar.js" type="text/javascript"></script>
+    <script src="js/chart.js" type="text/javascript"></script>
+    
+
+</head>
+<body class="main">
+<div id="skip"><a href="index.html">본문바로가기</a></div>
+<div class="header clearfix">
+   <div class="header_wrap">
+    <div class="today">
+        <span>today_</span>
+        <span id="clock"></span>
+    </div>
+    <ul class="info clearfix">
+        <li class="dingdong"><a href="#"><i class="far fa-address-card"><span class="alert">3</span></i>알림</a></li>
+        <li class="mail"><a href="#"><i class="far fa-envelope"><span class="alert">10</span></i>메일</a></li>
+        <li class="user"><a href="#"><p>프로필사진</p>이미현입니다.</a></li>
+<!--        <img src="img/mh_img02.png" alt="이미현입니다." />-->
+    </ul>
+</div>
+<div class="gnb">
+    <h1 class="logo"><a href="index.html"><img src="img/mh_logo.png" alt="관리자 페이지 로고입니다"></a></h1>
+    <ul>
+        <li class="borad"><i class="fas fa-user-tie"></i>MAIN
+            <ul>
+                <li><a href="#">Dashboard</a></li>
+            </ul>
+        </li>
+        <li class="layer"><i class="fas fa-layer-group"></i>POPUP
+            <ul>
+                <li><a href="#">새창 레이어팝업</a></li>
+                <li><a href="#">화면 내 레이어팝업</a></li>
+            </ul>
+        </li>
+        <li class="design"><i class="fas fa-palette"></i>DESIGN MENU
+            <ul>
+                <li class="form"><a href="#">폼양식</a></li>
+                <li class="layout_list"><a href="admin_layout.html">레이아웃<i class="fas fa-thumbs-up another"></i></a></li>
+                <li class="chart"><a href="#">차트모음</a></li>
+                <li class="button"><a href="admin_button.html">버튼모음<i class="fas fa-thumbs-up another"></i></a></li>
+            </ul>
+        </li>
+        <li class="page"><i class="far fa-edit"></i>Page
+            <ul>
+                <li><a href="#">로그인 페이지</a></li>
+                <li><a href="#">404에러 페이지</a></li>
+            </ul>
+        </li>
+        <li class="map"><i class="fas fa-map-marked-alt"></i>Map
+            <ul>
+                <li><a href="#">구글지도</a></li>
+                <li><a href="#">네이버지도</a></li>
+                <li><a href="#">다음지도</a></li>
+            </ul>
+        </li>
+        <li class="map"><i class="far fa-file-code"></i>Slide
+            <ul>
+                <li><a href="#">슬라이드01</a></li>
+                <li><a href="#">슬라이드02</a></li>
+                <li><a href="#">슬라이드03</a></li>
+            </ul>
+        </li>
+    </ul>
+    </div>
+</div>
+<div class="wrap">
+    <div class="section float_wrap clearfix">
+        <div class="form">
+            <h2>Form</h2>
+            <table>
+            <tbody>
+                <tr>
+                    <td class="th"><label for="name">이름<span class="required" title="필수입력">*</span></label></td>
+                    <td><input type="text" id="name" placeholder="홍길동(예시)"></td>
+                </tr>
+                <tr>
+                    <td class="th"><label for="phone02">전화번호<span class="required" title="필수입력">*</span></label></td>
+                    <td>
+                        <select id="phone" class="phone">
+                            <option value="010">010</option>
+                            <option value="011">011</option>
+                            <option value="016">016</option>
+                            <option value="017">017</option>
+                            <option value="seoul">02 (서울)</option>
+                            <option value="daegu">053 (대구)</option>
+                            <option value="gwangju">062 (광주)</option>
+                            <option value="busan">051 (부산)</option>
+                            <option value="daejun">042 (대전)</option>
+                        </select>
+                    </td>
+                    <td> - <input type="text" id="phone02" maxlength="4" title="가운데번호 네자리" class="phone"></td>
+                    <td> - <input type="text" id="phone03" maxlength="4" title="마지막번호 네자리" class="phone"></td>
+                    
+                    <td class="check"><a href="#" class="btn" title="중복확인하기">중복확인하기</a></td>
+                </tr>
+                <tr>
+                    <label for="mail"><td class="th">E-mail</td></label>
+                    <td><input type="text" id="mail" placeholder="이메일을 입력 해 주세요"></td>
+                    <td> @ 
+                        <select name="mail" id="mail">
+                            <option value='' selected>-- 메일 선택 --</option>
+                            <option value="naver">naver</option>
+                            <option value="gmail">gmail</option>
+                            <option value="nate">nate</option>
+                            <option value="hanmail">hanmail</option>
+                            <option value=""></option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="th">성별</td>
+                    <td>
+                        <label for="female"><input type="radio" name="sex" id="female" value="1" />여성</label>
+                        <label for="male"><input type="radio" name="sex" id="male" value="0" />남성</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="th">사용 가능한 프로그램</td>
+                    <td>
+                        <label for="html"><input type="checkbox" name="" id="html">html</label>
+                        <label for="css"><input type="checkbox" name="" id="css">css</label>
+                        <label for="jquery"><input type="checkbox" name="" id="jquery">jquery</label>
+                        <label for="javascript"><input type="checkbox" name="" id="javascript">javascript</label>
+                        <label for="photoshop"><input type="checkbox" name="" id="photoshop">photoshop</label>
+                        <label for="illust"><input type="checkbox" name="" id="illust">illust</label>
+                    </td>
+                </tr>
+    <!-- 이미지, 파일 업로드
+                <tr>
+                    <td class="th">Image Upload</td>
+                    <td>
+                        <ul class="preview image-preview">
+                            <li class="no-image">
+                                <span class="image"><i class="far fa-image"></i></span>
+                                <span class="file-info"><i class="fas fa-exclamation-triangle"></i>No image</span>
+                            </li>
+                            <li class="uploading">
+                                <span class="image"><i class="fas fa-spin fa-spinner"></i></span>
+                                <span class="file-info"><i class="fas fa-spin fa-spinner"></i>Uploading...</span>
+                            </li>
+                            <li class="uploaded">
+                                <span class="image">
+                                    <img src="images/sample.jpg" alt="photo sample" />
+                                    <a href="#" class="save"><i class="fas fa-save"></i></a>
+                                    <span class="image-size">240 * 360</span>
+                                </span>
+
+                                <span class="file-info"><i class="fas fa-images"></i>sample.jpg</span>
+                                <a class="btn tiny purple">0.39 MB</a>
+                            </li>
+                            <li class="modify-mode">
+                                <span class="image">
+                                    <img src="images/sample.jpg" alt="photo sample" />
+                                    <a href="#" class="save"><i class="fas fa-save"></i></a>
+                                    <span class="image-size">240 * 360</span>
+                                </span>
+                                <span class="file-info"><i class="fas fa-images"></i>sample.jpg</span>
+                                <a class="btn tiny purple">0.39 MB</a>
+                                <a class="btn tiny icon red"><i class="fas fa-times"></i></i></a>
+                            </li>
+                        </ul>
+                        <input type="file" name="" id="image1" multiple="multiple" />
+
+                    </td>
+                    <td><label for="img_up01"><input type="image" name="" id="img_up01"></label></td>
+                    <td><label for="img_up02"><input type="image" name="" id="img_up02"></label></td>
+                    <td><label for="img_up03"><input type="image" name="" id="img_up03"></label></td>
+                </tr>
+                <tr>
+                    <td class="th">File Upload</td>
+                    <td><label for="file_up01"><input type="file" name="" id="file_up01"></label></td>
+                    <td><label for="file_up02"><input type="file" name="" id="file_up02"></label></td>
+                    <td><label for="file_up03"><input type="file" name="" id="file_up03"></label></td>
+                </tr>            
+                <tr>
+                    <td class="th"><label for="file1">파일첨부</label></td>
+                    <td>
+                        <ul class="preview file-preview">
+                            <li class="no-file">
+                                <span class="filename">
+                                    <i class="fas fa-exclamation-triangle"></i></span>
+                                    <em class="name">No File</em>
+                                </span>
+                            </li>
+                            <li class="uploading">
+                                <span class="filename">
+                                    <span class="fontawesome"><i class="fas fa-spinner fa-spin"></i>
+                                    <em class="name">Uploading...</em>
+                                </span>
+                            </li>
+                            <li>
+                                <a href="#" class="filename" title="presentation.ppt">
+                                    <i class="fas fa-chalkboard-teacher"></i>
+                                    <em class="name">presentation.ppt</em>
+                                </a>
+                                <p class="function"><a class="btn tiny purple">0.39 MB</a></p>
+                            </li>
+                            <li>
+                                <span class="filename" title="presentation.ppt">
+                                    <i class="fas fa-chalkboard-teacher"></i>
+                                    <em class="name">presentation.ppt</em>
+                                </span>
+                                <p class="function">
+                                    <a class="btn tiny icon red"><i class="fas fa-times"></i></i></a>
+                                    <a class="btn tiny purple">0.39 MB</a>
+                                </p>
+                            </li>
+                        </ul>
+                        <input type="file" name="" id="file1" multiple="multiple">
+                    </td>
+                </tr>
+    이미지, 파일 업로드     --> 
+            </tbody>
+            </table>
+        </div>
+        <div class="calendar_box">
+            <h2>Calendar</h2>
+            <table id="calendar">
+                <tr>
+                    <td><label onclick="prevCalendar()"> &lt; </label></td>
+                    <td id="tbCalendarYM" colspan="5">yyyy년 m월</td>
+                    <td><label onclick="nextCalendar()"> &gt; </label></td>
+                </tr>
+                <tr>
+                    <td class="sun">일</td>
+                    <td>월</td>
+                    <td>화</td>
+                    <td>수</td>
+                    <td>목</td>
+                    <td>금</td>
+                    <td class="sat">토</td>
+                </tr> 
+            </table>
+        </div>
+    
+    </div>
+    <div class="section chart clearfix">
+        <div class="layout_list column_3">
+           <h2>Chart</h2>
+            <section class="layout_box">
+                <h3>방문자 현황</h3>
+                <div id="chart1"></div>
+            </section>
+            <section class="layout_box">
+                <h3>일자별 등록자 수</h3>
+                <div id="chart2"></div>
+            </section>
+            <section class="layout_box">
+                <h3>고객 유입 경로</h3>
+                <div id="chart3"></div>
+            </section>
+        </div>
+    </div>
+    <div class="section upload">
+        <h2>Upload</h2>
+    </div>
+    
+    
+    
+</div>
+
+<script>
+</script>
+
+
+
+</body>
+</html>
