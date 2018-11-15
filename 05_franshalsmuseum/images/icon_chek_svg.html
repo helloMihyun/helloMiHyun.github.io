@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="text.css">
+        <style>
+            animation-icon {
+                display: inline-block;
+                position: relative;
+                height: 1em;
+                width: 1em;
+            }
+            .event-card .add-to-trip-button .checkmark, .event-card .download-button .checkmark {
+                position: absolute;
+                top: calc(50% - .5em);
+                left: calc(50% - .5em);
+                height: 1em;
+                width: 1em;
+                opacity: 0;
+            }
+            .animation-icon > span {
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 100%;
+                display: inline-block;
+            }
+            
+            .animation-icon > span svg {
+                height: 100% !important;
+                width: 100% !important;
+                display: block;
+                stroke: #231f20;
+            }    
+            .static-svg svg path, .animation-svg svg path {
+                fill: none;
+                stroke-width: 3.5;
+                stroke-miterlimit: 10;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+            }
+        </style>
+    </head>
+    <body>
+  
+<span class="checkmark">
+    <span class="animation-icon">
+        <span class="static-svg"><svg version="1.1" id="Layer_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 19.2 15.2" style="enable-background:new 0 0 19.2 15.2;" xml:space="preserve">
+        <path d="M18,1.2L6.3,12.7L1.2,8"></path>
+        </svg></span>
+        <span class="animation-svg" data-component="animation-icon"><svg version="1.1" id="Layer_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 19.2 15.2" style="enable-background:new 0 0 19.2 15.2;" xml:space="preserve">
+        <path d="M18,1.2L6.3,12.7L1.2,8" style="stroke-dashoffset: 23.3409; stroke-dasharray: 23.3409, 23.3409;"></path>
+        </svg>
+        </span>
+    </span>
+</span>
+    </body>
+</html>

@@ -1,0 +1,804 @@
+@charset "utf-8";
+
+/* reset */
+body {
+	font:normal 12px '맑은고딕', Arial, sans-serif;
+	line-height:1.6;
+	color:#666666;
+	background-color:#fff;
+	margin:0;
+	padding:0;
+}
+
+h1, h2, h3, h4, h5, h6 {font-size:1em;}
+h1, h2, h3, h4, h5, h6, div, p, dl, dt, dd, ul, ol, li, form, fieldset, blockquote, address, table, thead, tbody, tfoot, tr, td, caption {
+	margin:0;
+	padding:0;
+}
+ul, ol {list-style:none;}
+img {border:0;}
+a {text-decoration:none; color:#666;}
+table {border-collapse:collapse; width:100%;}
+caption {visibility: hidden; height: 0;}
+
+
+
+/* 
+contents main - css 100
+contents intro 기업소개 - css 232
+contents recruit - css 464
+
+*/
+
+
+
+/* layout */
+.hanssem {
+	width: 1280px;
+	margin: 0 auto;
+	position: relative;	 
+	letter-spacing:0px;
+	border-left: 1px solid #e1e1e1;
+	border-right: 1px solid #e1e1e1; }
+.hanssem > .header {width: 230px;}
+ 
+
+/* header */
+.header { 
+	position: absolute;
+	left: 0;
+	top: 0;
+ 	width: 230px;
+ 	height: 100%;
+ 	background:url('../images/bg_head_shadow.png')repeat-y right 0;}
+.header > h1 { 
+	padding: 30px 64px 99px 64px;}
+.header > .gnb  {
+	width: 136px;
+	margin:0 40px 110px 54px;
+}
+.header > .gnb > li { 
+	border-bottom: 1px solid #e6e6e6;
+	width: 136px;
+	height: 44px;
+}
+.header > .gnb > li > a {
+    margin-left: 10px;
+	font-size: 16px;
+	font-weight: bold;
+	color: #262626;
+	line-height: 46px;
+}
+
+
+/* common ui */
+.header > .gnb .menu_list {
+	background-color: yellow;
+	padding:15px 0 37px 0;
+}
+.header > .gnb .menu_list li a {
+    font-weight: bold;
+	color:#888;
+	font-size: 13px;
+	background:url('../images/bg_bul_gray.gif')no-repeat 0 4px;
+	padding:0 0 0 7px;
+    display:block;
+}
+ 
+.header > .img_bnn { 
+	margin-left: 55px;
+	vertical-align: top;}
+.header > .familysite { 
+	margin: 129px 0 0 55px; 
+	width: 134px; 	}
+.header > .familysite > ul{
+ 	padding-top: 13px;
+ 	border-top: 1px solid #e5e5e5;}
+.header > .familysite h2 { 
+	margin-left: 10px;
+	padding-bottom: 11px;}
+.header > .familysite li {
+    margin-bottom: 14px;
+	line-height: 12px;
+	padding-left: 7px;
+	background:url('../images/bul_gray_2_3.gif')no-repeat left center;
+}
+.header > .familysite li + li {
+    margin-bottom: 14px;
+}
+.header > .familysite li a {
+	font-size: 13px;
+	color:#aaab9e;
+	width: 134px;
+	display: inline-block;
+}
+.header > .social {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+ 	padding: 0 40px 57px 50px;}
+.header > .social > li {
+ 	float: left;
+	margin-right: 3px;}
+ 
+
+ /* gnb */
+.hanssem > .header > .gnb .company {
+    background-color: #fff;
+	height: 50px;
+}
+.hanssem > .header > .gnb .company > li {
+    margin-bottom: 14px;
+	border: 1px solid red;
+}
+.hanssem > .header > .gnb .company > li > a {
+    font-size: 12px;
+}
+
+
+ /* hanssem - contents  */
+
+.contents { 
+	width: 960px;
+	padding:0 50px 0 40px;
+	margin-left: 230px;}
+.contents > .util {
+ 	padding-top: 31px;
+ 	height: 50px;}
+.contents > .util > .sitemap{
+	float: left;
+	margin-bottom: 49px;
+ 	line-height: 12px;}
+.contents > .util > .sitemap > span > a {color : #a6a6a6;}
+.contents > .util > .sitemap > span{
+	font-size: 12px;
+	color:#e8e8e8;
+	font-weight: bold;
+	padding:0 13px 0 16px; 
+ 	display: inline-block;
+	background:url('../images/bg_util_bar.gif')no-repeat 0 1px;	}
+
+.contents > .util > .sitemap > span:first-child{
+	background:none;
+	padding: 0 13px 0 0;}
+.contents > .util > .lang{
+	float: right;	
+	margin-right: 15px;} 
+.contents > .util > .lang > li {
+	float: left;
+ 	margin-left: 6px;}
+.contents > .util > .lang > li > a {color:#a6a6a6; font-size: 13px; font-weight: normal;}	
+.contents > .util > .lang > li > em {font-style: normal;}
+.contents > .util > .lang > li.color > a {
+	color:#d90014;
+	text-decoration: underline;}
+.contents > .main_visual {margin-bottom: 50px; position: relative;}
+
+
+.bx-wrapper {box-shadow: none;
+ 	margin-bottom: 0;}
+/* bxslider 부분 안되면 삭제하고 가져가기*/ 
+/*.contents .visual {position: relative;}*/
+.contents .visual .bx-wrapper { 
+	box-shadow: none;
+ 	margin-bottom: 0; }
+.contents .visual {position: relative;}
+.contents .visual .bx-controls-direction {position: absolute;
+	bottom: 19px;
+	right: 20px;  }
+.contents .visual .bx-controls-direction a { 
+ 	position: static;
+ 	display: inline-block;
+ 	text-indent: -9999px;
+ 	width: 20px;
+ 	height: 20px;
+ 	margin-left: 5px;}
+.contents .visual .bx-controls-direction .bx-prev {
+	background:url('../images/icon_banner_prev.gif'); }
+.contents .visual .bx-controls-direction .bx-next {
+	background:url('../images/icon_banner_next.gif');}
+.bx-pager {display: none;}
+
+
+
+ /*family_link*/
+
+
+
+.family_link {padding-top: 50px;
+	overflow: hidden; 
+}
+.fanily_link .col{
+	
+}
+/*수정*/
+.col .bx-wrapper{
+	width:10px;
+	height:10px;
+	left:20px;
+	
+/*	display: none;*/
+}
+.col .bx-controls{
+	display:none;
+}
+.col .bx-viewport{
+	 width: 100%; 
+     overflow: auto;
+     position: static; 
+     height: auto; 
+
+}
+
+/*.family_link .col .bx-wrapper{position: relative;}
+.family_link .col .bx-wrapper .bx-viewport{border: 1px solid red;
+	position: absolute;
+	right: 0;
+	bottom: 0;}
+.family_link .bx-wrapper {}
+.family_link .col .bx-wrapper .bx-viewport .bxslider{
+	background-color: red;
+	position: absolute;}
+.family_link .bx-wrapper .bx-viewport {}
+*/
+
+
+
+/* 부모넓이를 읽음 
+플롯으로 떳으니깐 넓이가 명확하지 않으니깐 ...!!
+패밀리에다가 245를 줘?
+콜 레프트에 */
+/*수정*/
+.family_link >div{
+	width:455px;
+	position: relative;
+		padding: 25px 25px 25px 0;
+	border-bottom: 1px solid #e1e1e1;
+}
+.family_link > .col >left{
+	
+	float: left;
+	width: 245px;/*수정*/
+
+}
+.family_link > .col > .left{
+	float: left;
+	width: 210px;
+}
+.family_link > .col ul{
+	
+}
+.family_link > .col .roll_img {
+	float: right;
+	width: 245px;
+	height: 171px;
+}
+
+.family_link > .right {
+	float: right;
+	border-left: 1px solid #e1e1e1;
+	padding: 25px 0 25px 24px;}
+
+.family_link > .col  h2{
+	font-size: 20px;
+	color: #262626;
+	line-height: 22px;
+	margin-bottom: 11px;
+	letter-spacing: -1px;}
+.family_link > .col p{
+	font-size: 14px;
+	line-height: 20px;
+	color:#999;
+	letter-spacing: -1px;
+	margin-bottom: 15px;}
+/*수정*/
+.family_link > .col .shortcut_btn a {
+	padding: 14px 58px 14px 12px;
+	font-size: 14px;
+	color:#fff;
+	background:url('../images/bg_btn_link_gray.png')no-repeat right center;
+	background-color: #a6a6a6;}
+.family_link > .col .shortcut_btn{
+  	position: absolute;
+ 	bottom: 57px;
+ 	left: 0;}
+.family_link > .right .shortcut_btn{
+	padding-left: 24px;}
+
+
+/* board_wrap  */
+.board_wrap {
+	clear: both;
+ 	padding-top: 34px;	
+ 	overflow: hidden;}
+
+.board_wrap > .board { 
+	width: 457px;
+	position: relative; 
+	float: left;
+	height: 128px;}
+.board_wrap > .board.news{
+	margin: 0 23px 0 0;} 
+.board_wrap > .board ul li a {font-size: 13px;}
+.board_wrap > .board ul li span {font-size: 13px; color:#999;}
+.board_wrap > .board.notice{
+	padding: 0 0 0 22px;
+	border-left: 1px solid #e6e6e6;}
+.board_wrap > .board > h3 {
+	border: 1px solid #fff; 
+	border-bottom: 1px solid #e1e1e1;
+	color: #262626;
+	font-size: 16px;
+	line-height: 16px;
+	padding-bottom: 15px;}
+.board_wrap > .board > ul {
+	background-color: #fff;
+	position: relative;}
+.board_wrap > .board > ul > li {
+	line-height: 12px;
+	margin-top: 15px;}
+.board_wrap > .board > ul > li > .date {
+	position: absolute;
+	right: 0;}
+.board_wrap > .board > .btn_more{
+	position: absolute;
+	top: 0;
+	right: 0;} 
+
+/* hanssem_link */
+
+.hanssem_link {
+	overflow: hidden; 	
+	padding: 33px 20px  157px 0;}
+.hanssem_link > .people{margin-right: 40px;}
+.hanssem_link > .sns_menu {	 
+	float: right; 
+	width: 225px;
+	margin-top: 2px;
+	border-top:1px solid #e1e1e1;}
+.hanssem_link > .sns_menu div{
+	float: left;
+	height: 112px;
+	width: 112px;}
+.hanssem_link > .sns_menu a {
+	width: 112px;
+	height: 111px;
+	display: block;}
+.hanssem_link > .sns_menu div strong{
+ 	font-size: 13px;	
+ 	display: block;
+	margin-top: 19px;
+	text-align: center;}
+.hanssem_link > .sns_menu > .sns.blog  {
+	background:url('../images/blog.png')no-repeat 34px 50px;	
+	background-size: 45px;
+ 	width: 112px;} 
+.hanssem_link > .sns_menu > .sns.sang  {
+	background:url('../images/hanssem_sangsang.png')no-repeat 22px 52px;	
+	background-size: 68px;
+	border-left:1px solid #e1e1e1;} 
+.hanssem_link > .sns_menu > .sns.face  {
+	background:url('../images/facebook.png')no-repeat 38px 50px;	
+	background-size: 37px;
+	border-top:1px solid #e1e1e1;} 
+.hanssem_link > .sns_menu > .sns.ins  {
+	background:url('../images/instagram.png')no-repeat 37px 50px;	
+	background-size: 37px;
+	border-top:1px solid #e1e1e1;	
+ 	border-left:1px solid #e1e1e1;  	} 
+
+
+
+/* footer */
+.footer {
+ 	clear: both;
+	padding:0 50px 0 40px; 
+	overflow: hidden;
+	height: 163px;} 
+.footer > .foot_left {
+ 	float: left;
+ 	width: 712px;} 
+.footer > .foot_left .foot_util{
+	margin-bottom: 13px; 
+	font-size: 12px;
+	letter-spacing: -1px;}
+.footer > .foot_left .foot_util strong{color:#262626;}
+.footer > .foot_left .foot_info{
+	border-top:1px solid #e1e1e1;
+	padding-top: 16px;	
+	color:#999;}
+.footer > .foot_left .foot_info .left{
+	float: left;
+	margin-right: 38px;
+	display: inline-block;}
+.footer > .foot_left .foot_info .right{display: inline-block;}
+.footer > .foot_left .foot_info .copy{
+	clear: both;
+	padding:29px 0 42px;}
+.footer .flagshop {
+	word-spacing: -1px;
+	width: 235px;
+ 	float: right;}
+.footer .flagshop >  strong{
+	margin-bottom: 13px;
+	display: inline-block;
+	color: #999;}
+.footer .flagshop > ul {
+	border-top: 1px solid #e1e1e1;
+	padding-top: 16px;}
+.footer .flagshop > ul > li {color: #999;}
+
+
+/*hanssem intro - sub01 기업소개 시작*/
+ 
+ 
+/*인라인애가 폰트사이즈를 가지고 있어서 자동적으로 스펜사이를 띄어쓰기 한다고 해야한다....
+	그래서 그 폰트 사이즈를 큰블록에 0을 주고 작은거에 다시 폰트사이즈를 제대로 주면
+	 사이간격이 사라지고 폰트사이즈만 먹는다*/
+
+
+
+/* location */
+.intro > .location {  
+ 	text-align: right;
+ 	line-height: 11px;
+ 	padding: 22px 0 46px;
+ 	font-size: 0;}
+.intro >.location > a { 
+	display: inline-block;
+	font-size: 11px;
+	color:#777;}
+.intro >.location > span { 
+	font-size: 10px;
+	margin: 0 7px 0 8px;}
+.intro >.location > strong {
+	font-size: 11px; 
+	color:#262626;
+	font-weight: normal;}
+
+
+/*tab_menu*/
+
+/* 샘 설명해주심!! 
+ 16으로 잡아놨을 근데 라인하이트가 1.6임
+ 폰트사이즈 16에 81.6`
+ 25.6 인데 
+
+ 1.6 * 16 = 25.6
+ 이 상자의 높이 개요 라는 상자 높이가 25.6 인데 r 글서 하이트값써놨던걸 지우고 16사이즈로 해놨으니깐 
+ 이거 2배만큼 라인헤이트 값을 li에 입력해주면 텍스트가 가운데로 자동 맞춤으로 설정된당!!!!
+
+ */
+/*
+.tab_menu > h2 {text-indent: -9999px;}
+.tab_menu > ul > li + li {margin-left: 12px;}
+.tab_menu > ul > li.on { 
+	border-bottom: 2px solid #2b2b2b;}
+.tab_menu > ul > li.on > a {
+	color: #262626;
+	font-weight: bold;
+}
+.tab_menu > ul > li > a {
+	color:#a6a6a6;
+	font-weight: bold;	}*/
+
+/* info - sub01 기업소개  */ 
+.intro .info { 
+	display: inline-block;
+	padding-top: 50px;}
+.intro .info > .info_left {float: left; margin-bottom: 30px;}
+.intro .info > .info_left > p {
+	font-size: 13px;
+	line-height:24px;
+	color:#262626; }
+.intro .info > .info_left > .slogan {
+	letter-spacing: -3px;
+ 	font-size: 32px;
+	font-family: 나눔명조; 
+	line-height: 32px;
+	margin-bottom: 34px;
+	color:#262626;}
+.intro .info > .info_right{
+	float: right;
+	width: 230px;
+	margin-top: 2px;
+	font-size: 13px;}
+ .intro .info > .info_right > p {
+	padding-bottom: 14px;
+	border-bottom: 1px solid #e1e1e1;}
+.intro .info > .info_right > .left{
+ 	float: left;
+	margin-top: 12px;}
+
+.intro .info > .info_right > .right{
+	float: right;
+	margin-right: 14px;
+	margin-top: 12px;}
+.intro .info > .info_right > em {
+	font-style: normal;
+	display: inline-block;
+	color: #a6a6a6;}
+
+.intro .tab_menu > h2 {text-indent: -9999px;}
+.intro .tab_menu > ul > li {
+ 	float: left;
+    font-size: 16px;
+    line-height: 46px;
+    width: 231px;
+    border-bottom: 1px solid #e1e1e1;}
+.intro .tab_menu > ul > li > a {
+	color: #a6a6a6; 	
+	font-weight: bold;}
+.intro .tab_menu > ul > li + li {margin-left: 12px;}
+.intro .tab_menu > ul > li.on { 
+	border-bottom: 2px solid #2b2b2b;}
+.intro .tab_menu > ul > li.on > a {
+	color: #262626;
+	font-weight: bold;}
+ 
+ 
+/* col - 기업소개 - sub01 */
+.col {width: 470px;}
+.col {float: left; /*margin-right: 10px;*/}
+.col > strong {
+	font-size: 18px; 
+	color : #262626; 
+	line-height: 18px;}
+.col2 > .col > strong {
+	display: inline-block;
+	margin: 44px 0 28px;
+	color: #262626;}
+.col2 > .col > p {
+	font-size: 14px;
+	color: #262626;
+	line-height: 24px;
+	padding-bottom: 41px;}
+.col2 > img {padding-bottom: 30px;}
+
+
+.col3 {padding-top:29px; border-top: 1px solid #e1e1e1; }
+.col3 > .col > strong{	
+	display: inline-block;
+	margin-bottom:28px;
+	color: #262626; }
+.col3 > .col > p{	
+	font-size: 14px;
+	color: #262626;
+	line-height: 24px; }
+.col3 > img {margin-top: 41px;}
+
+.col_last { 
+	overflow: hidden;
+	border-bottom: 1px solid #e1e1e1;
+	padding-bottom: 100px;}
+.col_last > p {
+	font-weight: bold;
+	font-size: 18px;
+ 	padding:44px 0 28px;
+	color: #262626;} 
+.col_last > .col > p {
+	font-size: 14px;
+	color: #262626;
+	line-height: 24px;
+ 	padding-bottom: 29px;
+	border-bottom: 1px solid #e1e1e1;}
+
+
+.recruit > .location {  
+ 	text-align: right;
+ 	line-height: 11px;
+ 	padding: 22px 0 46px;
+ 	font-size: 0;}
+.recruit >.location > a { 
+	display: inline-block;
+	font-size: 11px;
+	color:#b1b1b1;}
+.recruit >.location > span { 
+	font-size: 10px;
+	margin: 0 7px 0 8px;}
+.recruit >.location > strong {
+	font-size: 11px; 
+	color:#262626;
+	font-weight: normal;}
+
+.recruit .tab_menu  {overflow: hidden;}
+.recruit .tab_menu > h2 {text-indent: -9999px;}
+.recruit .tab_menu > ul > li + li {margin-left: 12px;}
+.recruit .tab_menu > ul > .on {
+	border-bottom: 2px solid #2b2b2b;
+	color:#262626;} 
+.recruit .tab_menu > ul > li.on > a {
+	color: #262626;
+	font-weight: bold;}
+.recruit .tab_menu > ul > li {
+ 	float: left;
+    font-size: 16px;
+    line-height: 46px;
+    width: 312px;
+    border-bottom: 1px solid #e1e1e1;}
+
+
+.recruit > .slogan {
+ 	letter-spacing: -3px;
+ 	font-size: 32px;
+	font-family: 나눔명조; 
+	line-height: 44px;
+	color:#262626; 
+	padding: 52px 0 52px;}
+.recruit > .col4 {
+	border-top: 1px solid #e1e1e1;
+	padding: 30px 0 36px;
+	border-bottom: 1px solid #e1e1e1;
+ 	overflow: hidden;}
+.recruit > .col4 h3 {
+	font-size: 18px;
+	color: #262626;
+	float: left;
+	line-height: 18px;}
+.recruit > .col4 .col {
+	width: 717px;
+	float: right;}
+.recruit > .col4 > .col > .kd strong {
+ 	font-size: 14px;
+    line-height: 12px;
+	display: inline-block;
+	margin-bottom: 12px;
+	color: #262626;
+	font-weight: bold;}
+.recruit > .col4 > .col > .info03 > .text {
+	display: block;
+	font-size: 14px;
+	line-height: 18px;}
+.recruit > .col4 > .col > .info03 > .text >strong {color:#262626;}
+.recruit > .col4 .col  p {
+	color: #5b5b5b;
+	font-size: 14px;}
+.recruit > .col4 > .col > .info01 {margin-bottom: 35px;}
+.recruit > .col4 > .col > .info02 {margin-bottom: 18px;}
+.recruit > .col4 > .col > .info03 { }
+.recruit > .col4 > .col > .info03 > div{border:1px solid #000;}
+.recruit > .col4 > .col > .kd+.kd{margin-top: 42px;}
+
+
+.recruit .point {padding:30px 0 36px;
+	overflow: hidden;}
+.recruit .point > h3 {
+	font-size: 18px;
+	color: #262626;
+	line-height: 18px;	
+	float: left;
+	width: 243px;}
+.recruit .point > ul {
+	width: 717px;
+	float: right;}
+.recruit .point > ul > li {float: left;}
+.recruit .point > ul > li  strong {
+	color: #262626;
+	font-size: 16px;
+	line-height: 16px;	
+	margin-top: 24px;}
+.recruit .point > ul > li  p {
+	font-size: 14px;
+	color:#5b5b5b;
+	line-height: 20px;
+	margin-top: 13px;}
+.recruit .point > ul > li  > * {display: block;}
+.recruit .point > .line_img01 {
+	margin-bottom: 23px;}
+.recruit .point > .line_img01 > li + li {
+	margin-left: 12px;}
+.recruit .point > .line_img02 {
+  	width: 474px;
+	margin-right: 116px;}
+.recruit .point > .line_img02 > li + li {padding-left:12px;}
+
+
+
+.advice {
+	padding: 30px 0 36px;
+	overflow: hidden;}	
+.advice h4{
+	display: inline-block;
+	font-size: 18px;
+	color: #262626;
+	float: left;}	
+.advice .advice_con {	
+	float: right;
+	padding-bottom: 100px;	}
+.advice .sub_visual {float: right;}	
+.advice .advice_con .advice_list{
+	border-bottom:1px solid #e1e1e1;
+	width: 717px;
+	overflow: hidden;
+	float: right;}	
+.advice .advice_con .advice_list .interview > *{display: inline-block;}
+.advice .advice_con .advice_list strong { 
+	font-size: 14px;
+	color: #262626;
+	line-height: 14px;
+	float: left;
+	margin-top: 30px;}	
+.advice .advice_con .advice_list .interview {
+	float: right;
+	width: 474px;
+	padding-top: 30px;
+	padding-bottom: 50px;}	
+.advice .advice_con .advice_list .interview img {float: right;}
+.advice .advice_con .advice_list .interview b {	 
+	padding-top:50px;
+	font-size: 14px;
+	line-height: 14px;
+	color:#262626;
+	/*원래 간격 - 위로 78 아래 35*/}
+.advice .advice_con .advice_list .interview p {
+	margin-top: 30px;
+	line-height: 22px;
+	font-size: 14px;
+	color: #555;}
+
+/* 이거 일단 적어서 해보기 */
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

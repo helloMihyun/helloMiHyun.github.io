@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>이미현_포트폴리오_미술관</title>
+    	
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+
+<!--    웹폰트용 -->
+    <link type="text/css" rel="stylesheet" href="./css/flickity.css">
+    <link type="text/css" rel="stylesheet" href="./css/clock_style.css">
+    <link type="text/css" rel="stylesheet" href="./css/main.css">
+    
+    
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js"></script>
+    
+    <script src="./js/jquery-1.11.3.min.js" type="text/javascript"></script>
+    <script src="./js/flickity.pkgd.min.js"></script>    
+    <script src="./js/main.js" type="text/javascript"></script>
+    
+</head>
+<body>
+<!--<img src="../18.07.02/franshalsmuseum_main_.png" alt="" style="opacity :0.3; position:absolute; z-index:1;">-->
+<!--<img src="main.png" alt="" style="opacity :0.5; position:absolute; z-index:1;">-->
+<!--   헤더메뉴부분-->
+<header>
+<!--헤더네비 시작-->
+    <div class="nav_wrap">
+        <nav class="main_nav">
+            <div class="nav_item"><a href="">VISIT</a></div>
+            <div class="nav_item"><a href="">DISCOVER</a></div>
+        </nav>
+        <a href="logo" class="logo"><h1>
+            <use x="0" y="0" href="#logo" xlink:href="#logo">
+            <svg id="logo" viewBox="0 0 340.8 100" width="100%" height="100%">
+            <path d="M137.1 53.4h29.4v46.2h-29v-7h21.6V80.2h-10.5v-7h10.5V60.4h-22v-7zm-22.6-.3c-8.6 0-15 6.2-15 15.2v31.3h7.2V67.9c0-4.7 3-7.9 7.7-7.9s7.7 3.2 7.7 7.9v31.7h7.4V68.3c0-9-6.4-15.2-15-15.2zm-31 29.6L71.4 53.4h-6.6L52.6 82.7V53.4h-7.4v46.2h8.2L68.1 64l14.6 35.6h8.2V53.4h-7.4v29.3zm140.2-29.6c-8.6 0-15 6.2-15 15.2v31.3h7.2V67.9c0-4.7 3-7.9 7.7-7.9s7.7 3.2 7.7 7.9v31.7h7.4V68.3c0-9-6.4-15.2-15-15.2zm62.1.3v29.3l-12.1-29.3H267l-12.1 29.3V53.4h-7.4v46.2h8.2L270.3 64 285 99.6h8.2V53.4h-7.4zm-97.4 6.5c4.7 0 7.5 3.6 7.5 7.9h7.4c0-8.2-6.4-14.8-14.8-14.8-8.3 0-14.8 6.5-14.8 15 0 7.1 3.7 10.9 9.4 13.1 5.9 2.3 10.3 2.7 10.3 7 0 2.8-2 4.9-5.1 4.9-2.4 0-4.7-1.4-5.8-3.9l-4.9 4.9c2.2 3.8 5.9 5.9 11 5.9 6.9 0 12.1-5.1 12.1-12.3 0-5.1-3-8.8-7.3-10.4-6.5-2.5-12.5-2.5-12.5-9.4 0-4.6 2.8-7.9 7.5-7.9zM340.6 32c0 8.5-6.5 15-14.8 15-8.4 0-14.8-6.6-14.8-14.8h7.4c0 4.3 2.8 7.9 7.5 7.9s7.5-3.3 7.5-7.9c0-6.9-6-6.9-12.5-9.4-4.3-1.6-7.3-5.3-7.3-10.4 0-7.2 5.2-12.3 12.1-12.3 5.1 0 8.8 2.1 11 5.9l-4.9 4.9C330.7 8.4 328.4 7 326 7c-3.1 0-5.1 2.1-5.1 4.9 0 4.3 4.4 4.7 10.3 7 5.7 2.2 9.4 6 9.4 13.1zM285.5.4h-7.4v46.2h29.4v-7h-22V.4zM219 19.8h-15.6V.4H196v46.2h7.4V26.8H219v19.8h7.4V.4H219v19.4zm-48.5-1c-6-2.2-10.4-2.6-10.4-6.9 0-2.8 2-4.9 5.1-4.9 2.4 0 4.7 1.4 5.8 3.9l4.9-4.9c-2.2-3.9-5.9-6-10.9-6-6.9 0-12.1 5.1-12.1 12.3 0 5.1 3 8.8 7.3 10.4 6.5 2.5 12.5 2.5 12.5 9.4 0 4.6-2.8 7.9-7.5 7.9s-7.5-3.6-7.5-7.9h-7.4c0 8.2 6.4 14.8 14.8 14.8 8.3 0 14.8-6.5 14.8-15 0-7.1-3.7-10.9-9.4-13.1zm-34.6 13.4L121.1.4h-8.2v46.2h7.4V14.8l14.8 31.8h8.2V.4h-7.4v31.8zm-83.7-5.7l10.5 20.1h-8.4l-9.9-19.8h-1.1v19.8h-7.4V.4h13.5c7.4 0 13.3 4.8 13.3 13.2 0 7.4-4.8 11.8-10.5 12.9zm3.2-12.9c0-3.6-1.9-6.2-5.9-6.2h-6.2v12.4h6.2c3.9 0 5.9-2.6 5.9-6.2zM0 46.6h7.4V26.8h11.3v-7H7.4V7.4h22v-7H0v46.2zM248.6.4l-17 46.2h7.7L242 39H252.4v-7H244.5l7.8-21.7 13.1 36.3h7.7L256 .4h-7.4zM83.5.4L66.4 46.6h7.7l13-36.3L95 32H87.1v7H97.4l2.8 7.6h7.7L90.8.4h-7.3z"></path></svg>
+            </use> 
+        </h1></a>
+        <nav class="main_nav">
+            <div class="nav_item"><a href="">LEARN</a></div>
+            <div class="nav_item"><a href="">SUPPORT</a></div>
+        </nav>
+<!--
+        <div class="nav_inner">
+            <section class="inner_visit">
+                <h2>VISIT</h2>
+                <ul>
+                    <li><a href="#">Visitor Info</a></li>
+                    <li><a href="#"></a></li>
+                    <li><a href="#"></a></li>
+                </ul>
+            </section>
+        </div>
+-->        
+        <div class="header_until">
+           <a href="" class="play-btn">
+           <object data="images/play.svg" type="image/svg+xml"></object>
+           </a>
+           <a href="" class="header_language_btn">
+               <span>
+                   <span class="">EN</span>
+                   <span class="">NL</span>
+                </span>
+            </a>
+        </div>
+    </div>    
+<!--헤더네비 끝-->
+<!--    헤더콘텐츠 시작-->
+    <div class="header_content">
+        <div class="header_main_visual">
+            WELCOME
+        </div>
+        <div class="header_main_opentime">
+            <!-- 시계 -->
+            <div class="clock_position">
+                <div id="clock" class="light">
+                    <div class="display">
+                        <div class="ampm"></div>
+                        <div class="digits"></div>
+                    </div>
+                </div> <!-- 시계 -->
+            </div>
+            <div class="open_time_wrap">
+                <span class="animation_icon"><object data="images/clock.svg" type="image/svg+xml"></object></span>
+                <p>We're open until 5 p.m. today</p>
+            </div>
+        </div>
+    </div>
+<!--    헤더콘텐츠 끝-->
+</header>
+<!--   헤더메뉴 끝-->
+
+<div class="main_wrap">
+<!--       버튼영역 시작-->
+    <div class="main_button_wrap">
+        <div class="top_button">
+            <a href=""><span class="hover">PLAN VISIT VISIT</span></a>
+        </div>
+        <div class="bottom_button">
+            <a href=""><span class="hover">BUY TICKETS</span></a>
+        </div>
+    </div>
+<!--버튼영역 시작-->
+<!--헤더메뉴_드롭다운 시작 -->
+<!--헤더메뉴_드롭다운 끝 -->
+    <!--   전시회 이미지영역 시작-->
+    <div class="spilit_artpieces"> <!--  exhibition -->
+        <div class="image_wrap">
+            <div class="image_top">
+                <div class="image"></div>
+            </div>
+            <div class="image_bottom">
+                <div class="image"></div>
+            </div>
+        </div>
+    </div> <!-- 이미지영역 끝-->
+    <div class="section_exhibition"> <!-- 섹션부분(오른쪽) 시작-->
+    <section class="main_section exhibition">  <!-- 전시회 정보 -->
+        <div class="section_header">
+            <h2 class="section_title">EXHBITIONS &amp; EVENTS</h2>
+            <span class="animaition_icon"><i class="far fa-calendar"></i>See full <a href="" class="active_line">calrendar</a></span>
+        </div> <!-- 전시회 정보 끝 -->
+        <div class="section_card_wrap main-carousel"> <!-- 슬라이더 적용부분 -->
+            <div class="card_wrapper">  <!-- 1 -->
+               <div class="card_event">
+                    <a href="#" class="img01">
+                        <strong class="event_card_date">23 Mar 2031 - 01 jan 2023</strong>
+                    </a>
+                    <span class="add_trip_button"></span>
+                </div>
+                <div class="card_info_wrap">
+                    <a href="" class="card_title">The Hals Phenomenon</a>
+                    <p class="card_except">A Glimpse into the Fascinating<br />World of Frans...</p>
+                    <p><strong>Location</strong> Hof</p>
+                </div>
+            </div>
+            <div class="card_wrapper"> <!-- 2 -->
+               <div class="card_event">
+                    <a href="" class="img02">
+                        <strong class="event_card_date">30 Mar 2018 - 30 Sep 2018</strong>
+                    </a>
+                    <span class="add_trip_button"></span>
+                </div>
+                <div class="card_info_wrap">
+                    <a href="" class="card_title">Rendezvous with Frans <br />Hals in Hof</a>
+                    <p><strong>Location</strong> Hof</p>
+                </div>
+            </div>                   
+            <div class="card_wrapper"> <!-- 3 -->         
+                <div class="card_event">
+                    <a href="" class="img03">
+                        <strong class="event_card_date">26 May 2018 - 13 Jan 2019</strong>
+                    </a>
+                    <span class="add_trip_button"></span>
+                </div>
+                <div class="card_info_wrap">
+                    <a href="" class="card_title">The Upstairs Room of Aart Taminiau</a>
+                    <p class="card_except">A search for the identity of the<br />Oude...</p>
+                    <p><strong>Location</strong> Hal</p>
+                </div>
+            </div>
+            <div class="card_wrapper"> <!-- 4 -->
+                <div class="card_event">
+                    <a href="" class="img04">
+                        <strong class="event_card_date">27 Jun 2018 - 30 Sep 2018</strong>
+                    </a>
+                    <span class="add_trip_button"></span>
+                    </div>
+                <div class="card_info_wrap">
+                    <a href="" class="card_title">Frans Hals 2.0</a>
+                    <p class="card_except">Design plans for a future-proof<br />museum</p>
+                    <p><strong>Location</strong>Hof</p>
+                </div>
+            </div>
+            <div class="card_wrapper"> <!-- 5 -->
+                <div class="card_event">
+                    <a href="" class="img05">
+                        <strong class="event_card_date">27 Jun 2018 - 30 Sep 2018</strong>
+                    </a>
+                    <span class="add_trip_button"></span>
+                    </div>
+                <div class="card_info_wrap">
+                    <a href="" class="card_title">Frans Hals 2.0</a>
+                    <p class="card_except">Design plans for a future-proof<br />museum</p>
+                    <p><strong>Location</strong>Hof</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    </div> <!-- 전시회 정보 섹션 끝 -->
+    <!--  NEW 섹션-->
+    <div class="section_new">
+    <section class="main_section new"> 
+        <div class="section_header">
+            <h2 class="section_title">NEW</h2>
+<!---->           <i class="far fa-newspaper"></i>
+               <span><a href="" class="active_line">Expolore museum highlights and more</a></span>
+        </div>
+        <div class="section_card_wrap">
+            <div class="card_wrapper">
+                <div class="news_card">
+                    <a href="" class="news_card_link"></a>
+                </div>
+                <div class="card_info_wrap">
+                    <p class="card_date"><strong>News</strong> 14th June 2018</p>
+                    <h3 class="card_title">Rediscovering Hals</h3>
+                    <p class="card_except">This tear marks exacly 150 years <br />since Frans...</p>
+                </div>
+            </div>
+            <div class="card_wrapper ">
+                <div class="news_card">
+                    <a href="" class="news_card_link"></a>
+                </div>
+                <div class="card_info_wrap">
+                    <p class="card_date"><strong>News</strong>29th MAy 2018</p>
+                    <h3 class="card_title">Mediakunst.net</h3>
+                    <p class="card_except">On Tuseday 19 June, th Van<br />Abbemuseum, Frans...
+                    </p>
+                </div> 
+            </div>
+        </div>
+    </section>
+    </div> <!--  NEW 섹션 끝-->
+    <!--  INSTAGRAM 섹션-->
+    <div class="section_instagram">
+        <section class="main_section instagram">
+            <div class="section_header">
+                <h2 class="section_title">instagram HIGHLIGHTS</h2>
+                <i class="fab fa-instagram"></i><span><a href="" class="active_line">Look at our pictures</a></span>
+            </div>
+            <div class="section_card_wrap main-carousel"> <!-- 슬라이더 적용부분 -->  
+<!--    main-carousel" data-flickity='{ "cellAlign": "left", "contain": true }' -->
+                <div class="card_wrapper"> <!-- 1 -->
+                    <div class="instagram_card_image img01"></div> <!-- 인스타그램카드이미지영역 끝 -->
+                    <div class="card_info_wrap"> <!-- 1 -->
+                        <!-- 인스타그램 좋아요수 -->
+                        <div class="instagram_card_likes">
+                            <span><i class="fab fa-instagram"></i>61 likes</span>
+                        </div>
+                        <!-- 인스타그램 좋아요수 끝 -->
+                        <strong>Franshalsmuseum</strong>
+                        <span class="card_excerpt">MIDWEEK MASTERPIECE: Jacobus van Looy White Pussycat at an Open …</span>
+                    </div>
+                </div>
+                <div class="card_wrapper"> <!-- 2 -->
+                    <div class="instagram_card_image img02"></div>  <!-- 인스타그램카드이미지영역 끝 -->
+                    <div class="card_info_wrap">
+                        <!-- 인스타그램 좋아요수 -->
+                        <div class="instagram_card_likes">
+                            <span><i class="fab fa-instagram"></i>60 likes</span>
+                        </div>  <!-- 인스타그램 좋아요수 끝 -->
+                        <strong>Franshalsmuseum</strong>
+                        <span class="card_excerpt">FRANS’ FACT: Was Frans a drunkard? This was told by …</span>
+                    </div>
+                </div>
+                <div class="card_wrapper"> <!-- 3 -->
+                    <!-- 인스타그램카드이미지영역 -->
+                    <div class="instagram_card_image img03"></div> <!-- 인스타그램카드이미지영역 끝 -->
+                    <div class="card_info_wrap">
+                        <!-- 인스타그램 좋아요수 -->
+                        <div class="instagram_card_likes">
+                            <span><i class="fab fa-instagram"></i>38 likes</span>
+                        </div>
+                        <span class="card_excerpt">MIDWEEK MASTERPIECE: Frans Hals Regentesses of the Old Men’s Alms …</span>
+                    </div>
+                </div>
+                <div class="card_wrapper"> <!-- 4 -->
+                    <div class="instagram_card_image img04"></div>   <!-- 인스타그램카드이미지영역 끝 -->
+                    <div class="card_info_wrap">
+                        <div class="instagram_card_likes">
+                            <span class="instagram_card_likes_label">62 likes</span>
+                        </div>
+                        <strong>Franshalsmuseum</strong>
+                        <span class="card_excerpt">INTERNSHIP: The Frans Hals Museum is looking for an enthusiast …</span>
+                    </div>
+                </div>
+                <div class="card_wrapper"> <!-- 5 -->
+                    <div class="instagram_card_image img05"></div>   <!-- 인스타그램카드이미지영역 끝 -->
+                    <div class="card_info_wrap">
+                        <div class="instagram_card_likes">
+                            <span><i class="fab fa-instagram"></i>62 likes</span>
+                        </div>
+                        <strong>Franshalsmuseum</strong>
+                        <span class="card_excerpt">MIDWEEK MASTERPIECE: Rineke Dijkstra The Krazy House, 2009 Video installation …</span>
+                    </div>
+                </div>
+                <div class="card_wrapper"> <!-- 6 -->
+                    <!-- 인스타그램카드이미지영역 -->
+                    <div class="instagram_card_image img06"></div>   <!-- 인스타그램카드이미지영역 끝 -->
+                    <div class="card_info_wrap">
+                        <div class="instagram_card_likes">
+                            <span><i class="fab fa-instagram"></i>54 likes</span>
+                        </div>
+                        <strong>Franshalsmuseum</strong>
+                        <span class="card_excerpt">RENDEZVOUS WITH FRANS HALS: Shezad Dawood meets Frans Hals Left: …</span>
+                    </div>
+                </div>
+                <div class="card_wrapper"> <!-- 7 -->
+                    <div class="instagram_card_image img07"></div>   <!-- 인스타그램카드이미지영역 끝 -->
+                    <div class="card_info_wrap">
+                        <div class="instagram_card_likes">
+                            <span><i class="fab fa-instagram"></i>24 likes</span>
+                        </div>
+                        <strong>Franshalsmuseum</strong>
+                        <span class="card_excerpt" Coming up: ‘Noise! Frans Hals, Otherwise’. Reviving Hals’s movements against …</span>
+                    </div>
+                </div>
+            </div> <!--  INSTAGRAM 섹션-->
+        </section>
+    </div> <!--  page_container 끝 -->
+</div> <!--   main_wrap끝     -->
+
+<footer>
+    <section class="newsletter">
+        <h3>Newsletter</h3>
+        <form action="">
+            <strong>Frans likes to send you emails</strong>
+            <p>Let us know your <label>name..<input type="text" name="name" class="news name"></label></p>
+            <p>and <label>email..<input type="email" name="mail" class="news mail"></label></p>
+            <input type="submit" class="submit_btn">
+        </form>
+    </section>
+    <section class="locations">
+       <h3>ONE MUSEUM TWO LOCATIONS</h3>
+        <div class="hof">
+            <img src="images/icon_loca_hof.svg" alt="">
+            <strong>HOF</strong>
+            <address>Groot Heiligland 62<br /> 2011 ES Haarlem</address>
+            <a href="">Opening hours</a>
+        </div>
+        <div class="hal">
+            <img src="images/icon_loca_hal.svg" alt=""> 
+            <strong>HAL</strong>
+            <address>Grote Markt 16<br /> 2011 RD Haarlem</address>
+            <a href="">Opening hours</a>
+        </div>
+    </section>
+    
+    <section class="social">
+        <a href="#" class="facebook"><img src="images/sns-1.svg" alt="페이스북"></a>
+        <a href="#" class="twitter"><img src="images/sns-2.svg" alt="트위터"></a>
+        <a href="#" class="instagram"><img src="images/sns-3.svg" alt="인스타그램"></a>
+    </section>
+    <section class="footer_nav">
+        <a href=""><span class="underline">Press</span></a>
+        <a href=""><span class="underline">Terms</span></a>
+        <a href=""><span class="underline">FAQ</span></a>
+        <a href=""><span class="underline">About us</span></a>
+        <a href=""><span class="underline">Colophon</span></a>
+        <a href=""><span class="underline">Contact</span></a>  
+    </section>
+    <section class="footer_logos">
+<!--        <object class="logo_01" data="images/logo-1.svg" type="image/svg+xml"></object>-->
+        <img  class="hal_logo" src="images/logo-1.svg" alt="haarlem" />
+<!--        <object class="logo_01" data="images/logo-2.svg" type="image/svg+xml"></object>-->
+        <img class="bgl" src="images/logo-2.svg" alt="BGL" />
+    </section>
+</footer>
+    
+<!-- gnb영역 시작 -->
+<gnb class="quicklick">
+    <div class="quicklick_menu_wrap">
+        <a href="#" class="quicklick_menu calerndar"><i class="far fa-calendar"></i></a>
+        <a href="#" class="quicklick_menu ticket"><i class="fa fa-ticket-alt"></i></a>
+        <button id="hamberger"><!--미디어쿼리 때 보임-->
+            <span id="hamberger_icon"></span>
+        </button>
+        <a href="#" class="quicklick_menu seach"><i class="fas fa-search"></i></a>
+        <a href="#" class="quicklick_menu location"><i class="fa fa-map-marker-alt"></i></a>
+        <a href="#" class="quicklick_menu clock"><i class="far fa-clock"></i></a>
+    </div>
+</gnb>
+<!--gnb영역 끝-->
+
+
+</body>
+</html>
