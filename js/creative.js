@@ -112,27 +112,27 @@ var data = [
     // userAvatarUrl_img:'img/portfolio/fullsize/3.jpg',
     // explan:'반스 홈페이지를 photoshop과 illust를 사용하여 리뉴얼 디자인하고 html, css, j-qeury를 사용하여 제작하였습니다.<br />원페이지로 구성된 사이트로 반응형이 가능한 사이트로 제작하였습니다.'
     username:"vans",
-    userWebsite_href: 'https://yamyamtomato.github.io//03_vans/index.html',
+    userWebsite_href: 'javascript:;',
     userAvatarUrl_img:'img/portfolio/fullsize/3.jpg',
-    explan:'사이트 업데이트 중 입니다.' 
+    explan:'사이트를 업데이트 중 입니다.' 
   },
   {
     username:"freitag",
     userWebsite_href: 'https://yamyamtomato.github.io/04_freitag/index.html',
     userAvatarUrl_img:'img/portfolio/fullsize/4.jpg',
-    explan: '프라이탁의 홈페이지를 저만의 코드로 구현하여 제작하였습니다.<br />원페이지로 구성된 사이트로 반응형이 가능한 사이트로 900px과 699px의 화면에 맞는 layout으로 제작하였습니다. '
+    explan:'프라이탁의 홈페이지를 저만의 코드로 구현하여 제작하였습니다.<br />원페이지로 구성된 사이트이며 반응형이 가능한 사이트로 900px과 699px의 화면에 맞는 layout으로 제작하였습니다. '
   },
   {
     username:"FransHals Museum",
     userWebsite_href: 'https://yamyamtomato.github.io/05_franshalsmuseum/index.html',
     userAvatarUrl_img:'img/portfolio/fullsize/5.jpg',
-    explan:'"FransHals Museum" 홈페이지를 저만의 코드로 구현하여 제작하였습니다.<br />원페이지로 구성된 사이트로 콘텐츠 부분을 좌우로 나눠 각각의 컨텐츠 내용을 확인 할 수 있습니다.'
+    explan:'"FransHals Museum" 홈페이지를 저만의 코드로 구현하여 제작하였습니다.<br />원페이지로 구성된 사이트이며 좌우로 나눠진 화면 구성에 스크롤 동작 시 콘텐츠의 동적인 전환 효과를 주었습니다.'
   },
   {
     username: "Administrator Page / Basic Form UI & UI Elements",
     userWebsite_href: 'https://yamyamtomato.github.io/06_admin/index.html',
     userAvatarUrl_img:'img/portfolio/fullsize/6.jpg',
-    explan:'사이트의 통일성과 작업 속도 향상을 위해 정확한 가이드 클래스를 모듈화하여 폼, 버튼, 레이아웃 서식 등을 제작하여 관리가 용이하도록 만들어 두었습니다.'
+    explan:'자주 사용되는 UI의 통일성과 작업 속도 향상을 위해 정확한 가이드 클래스를 모듈화하여 폼, 버튼, 레이아웃 서식 등을 제작하여 관리가 용이하도록 만들어 두었습니다.'
   }
 ];
 
@@ -146,7 +146,7 @@ $('.popup-gallery').magnificPopup({
   inline: {
     // Define markup. Class names should match key names.
     markup: '<div class="white-popup"><div class="mfp-close"></div>'+
-              '<a class="mfp-userWebsite">'+
+              '<a class="mfp-userWebsite" target="_blank">'+
                 '<h2 class="mfp-username"></h2>'+
                 '<div class="mfp-userAvatarUrl"></div>'+
                 '<p class="">사이트 바로가기</p>'+
@@ -202,7 +202,7 @@ $('.popup-gallery').magnificPopup({
 //       });
 
 
-
+/*
    window.onload = function(){
     var mymap = document.getElementById('map');   
     var latlng = new google.maps.LatLng(37.549233, 126.913377);
@@ -223,7 +223,14 @@ $('.popup-gallery').magnificPopup({
         });
 
     };
-
-
+*/
+  
+  
+    new daum.roughmap.Lander({
+      "timestamp" : "1631135189627",
+      "key" : "27awk",
+      "mapWidth" : "640",
+      "mapHeight" : "360"
+    }).render();
 
 })(jQuery); // End of use strict
