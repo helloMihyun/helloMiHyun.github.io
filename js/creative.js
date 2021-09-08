@@ -94,14 +94,14 @@ var data = [
   {
     username:"Osulloc", 
     // Key "username" means that Magnific Popup will look for an element with class "mfp-username" in markup and will replace its inner HTML with the value.
-    userWebsite_href: 'yamyamtomato.github.io/01_osulloc/index.html', // Key "userWebsite_href" means that Magnific Popup will look fo`r an element with class "mfp-userWebsite" and will change its "href" attribute. Instead of ending "href" you may put any other attribute.
+    userWebsite_href: 'https://yamyamtomato.github.io//01_osulloc/index.html', // Key "userWebsite_href" means that Magnific Popup will look fo`r an element with class "mfp-userWebsite" and will change its "href" attribute. Instead of ending "href" you may put any other attribute.
     userAvatarUrl_img: 'img/portfolio/fullsize/1.jpg', 
       // Prefix "_img" is special. With it Magnific Popup finds an  element "userAvatarUrl" and replaces it completely with image tag.
     explan:'2016년도 오설록 홈페이지를 photoshop과 illust를 사용하여 리뉴얼 디자인하고 html, css, j-query를 사용하여 제작하였습니다.<br />기업형 페이지로 제작하여 메인이 되는 페이지와 서브페이지 2장으로 구성되어 있습니다.<br />' 
   },
   {
     username:"hanssem",
-    userWebsite_href: 'yamyamtomato.github.io/02_hanssem/index.html',
+    userWebsite_href: 'https://yamyamtomato.github.io//02_hanssem/index.html',
     userAvatarUrl_img:'img/portfolio/fullsize/2.jpg',
     explan:'한샘닷컴의 홈페이지를 저만의 코드로 구현하여 제작하였습니다.<br />기업형 페이지로 제작하여 메인이 되는 페이지와 서브페이지 2장으로 구성되어 있습니다.'
 
@@ -112,7 +112,7 @@ var data = [
     // userAvatarUrl_img:'img/portfolio/fullsize/3.jpg',
     // explan:'반스 홈페이지를 photoshop과 illust를 사용하여 리뉴얼 디자인하고 html, css, j-qeury를 사용하여 제작하였습니다.<br />원페이지로 구성된 사이트로 반응형이 가능한 사이트로 제작하였습니다.'
     username:"vans",
-    userWebsite_href: 'yamyamtomato.github.io/03_vans/index.html',
+    userWebsite_href: 'https://yamyamtomato.github.io//03_vans/index.html',
     userAvatarUrl_img:'img/portfolio/fullsize/3.jpg',
     explan:'사이트 업데이트 중 입니다.' 
   },
