@@ -357,8 +357,6 @@ section#contact{
   margin-top:6em;
 }
 
-.map .root_daum_roughmap {
-  height:500px;
-  margin-top:6em;
-  width:100%;
+.map .root_daum_roughmap .wrap_map {
+  height:100%;
 }
