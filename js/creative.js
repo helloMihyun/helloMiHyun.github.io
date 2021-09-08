@@ -229,8 +229,8 @@ $('.popup-gallery').magnificPopup({
     new daum.roughmap.Lander({
       "timestamp" : "1631135189627",
       "key" : "27awk",
-      "mapWidth" : "640",
-      "mapHeight" : "360"
+      //"mapWidth" : "640",
+      //"mapHeight" : "360"
     }).render();
 
 })(jQuery); // End of use strict
