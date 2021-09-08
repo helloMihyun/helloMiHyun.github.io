@@ -120,7 +120,7 @@ var data = [
     username:"freitag",
     userWebsite_href: 'https://yamyamtomato.github.io/04_freitag/index.html',
     userAvatarUrl_img:'img/portfolio/fullsize/4.jpg',
-    explan:'프라이탁의 홈페이지를 저만의 코드로 구현하여 제작하였습니다.<br />원페이지로 구성된 사이트이며 반응형이 가능한 사이트로 900px과 699px의 화면에 맞는 layout으로 제작하였습니다. '
+    explan:'프라이탁의 홈페이지를 저만의 코드로 구현하여 제작하였습니다.<br />원페이지 반응형 사이트이며 900px과 699px의 화면에 맞는 layout으로 제작하였습니다. '
   },
   {
     username:"FransHals Museum",
