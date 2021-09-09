@@ -363,3 +363,9 @@ section#contact{
 .map.root_daum_roughmap .wrap_map {
   height:100%;
 }
+.link_list {
+  
+}
+.link_list > a {
+  display:block;
+}
