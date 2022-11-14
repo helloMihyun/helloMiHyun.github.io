@@ -1,0 +1,1317 @@
+
+<!DOCTYPE html>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no, maximum-scale=1.0, minimum-scale=1.0">
+
+<meta name="title" content="SK렌터카 대구경북" />
+<meta name="description" content="SK렌터카 대구/경북 신차 장기렌터카 간편 상담으로 빠른 출고 받으세요." />
+<meta name="keywords" content="대구렌터카, 렌터카, 경북렌터카, 대구장기렌터카, 신차장기, 신차렌탈" />
+<title>SK렌터카 대구경북</title>
+
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css"/>
+<link rel="stylesheet" href="/resources/css2/promotion_common.css?v=1.6">
+
+<script charset="UTF-8" class="daum_roughmap_loader_script" src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
+<script src="	https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.js"></script>
+<script src="/resources/js/common.js?v=1"></script>
+
+<script>
+
+$(document).on("keyup", "input[noAlphabet]", function() {$(this).val( $(this).val().replace(/[^ㄱ-힣]/gi,"") );}); //이름 입력 한글과 숫자만 허용
+
+function checkingName(){ 
+	var checkedValue = $("#userNm").val();
+	var checkedLength = checkedValue.length;
+	var char_ASCII = event.keyCode;
+	if(char_ASCII == 32){
+		if(checkedLength == 1){
+			$("#userNm").val("");
+		}else{
+			$("#userNm").val(checkedValue.trim());
+		}
+	}
+	
+	if(checkedLength != 0){
+		if(!noNumberKey()){
+			if(checkedLength == 1){
+				$("#userNm").val("");
+			}else{
+				$("#userNm").val(checkedValue.substring(0,checkedLength-1));
+			}
+		}else{
+			if(checkedLength > 10){
+				$("#userNm").val(checkedValue.substring(0,10));
+			}
+		}
+	}
+}
+
+function reqCounsel(){
+	var form = document.frm;
+	
+	//개인정보 수집 및 이용동의
+	if($('input:checkbox[id="term-check-2"]').is(":checked")){	
+		$("[name=agreeYn1]").val('Y');
+	}else{
+		$("[name=agreeYn1]").val('N');
+	}
+	
+	//마케팅 활용동의 여부 값 입력
+	if($('input:checkbox[id="select-terms4"]').is(":checked")){	
+		$("[name=agreeYn3]").val('Y');
+	}else{
+		$("[name=agreeYn3]").val('N');
+	}
+	
+	var obj_value = $("input:radio[name='distinction']:checked").val();
+	if(obj_value == ""){
+		alert("구분을 선택해주세요.");
+		return false;
+	}
+	
+	if(obj_value != "P"){
+		//개인사업자 혹은 법인
+		if($("#cmpyNm").val() == ""){
+			alert("상호명을 입력해 주세요.");
+			$("[name=cmpyNm]").focus();
+			return false;
+		}
+		if($("#cmpyNm").val().length >= 25){
+			alert("상호명은 최대 25자까지 입력 가능합니다.");
+			$("[name=cmpyNm]").focus();
+			return false;
+		}
+	}
+	
+	if($("[name=userNm]").val() == null || $("[name=userNm]").val() == ""){
+		alert("이름을 입력해주세요.");
+		$("[name=userNm]").focus();
+		return false;
+	}
+	
+	if($("[name=userNm]").val().length < 2){
+		alert("상담신청은, 한글 이름만 가능하며\n정상적인 이름이 아닌 경우, 상담신청이 제한 될 수 있습니다.");
+		return false;
+	}
+	
+	$("#custClsCd").val(obj_value);
+	
+	var checkedValue = $("#hpNo_1").val() + $("#hpNo_2").val()+ $("#hpNo_3").val();
+	
+	if(checkedValue.length > 11 || checkedValue.length < 10){ //10, 11자리만 허용
+		alert("연락처가 잘못되었습니다.");
+		return false;
+	}
+	
+	console.log("checkedValue :"+$("#hpNo_1").val() + $("#hpNo_2").val()+ $("#hpNo_3").val());
+	
+	$("#hpNo").val(checkedValue);
+	
+	//개인정보 수집 및 이용동의 동의체크
+	if($("[name=agreeYn1]").val() == "N"){
+		alert("개인정보 수집 및 이용에 동의해주세요.");
+		var offset = $('input:checkbox[id="term-check-2"]').offset();
+		$("html, body").animate({scrollTop:offset.top-200}, 10);
+		return false;
+	}
+
+	var tmp = jQuery("#frm").serializeArray();
+	var obj = {};
+	
+	$.each(tmp, function(idx, ele){
+		obj[ele.name] = ele.value;
+	});
+	
+	var data = JSON.stringify(obj);
+	
+	$.ajax({
+		url :'/rent/custcnte/counsel/longCounselReq.json',
+		type :'POST',
+		dataType :'json',
+		contentType :'application/json',
+		mimeType:'application/json',
+		processData :false,
+		data :data,
+		cache :false,
+		success :function(response, status, xhr) {
+			// Validation Message 초기화
+			if(response.resultCode == "0000") {
+
+				alert("상담신청이 완료되었습니다.\n주말공휴일 신청 시 다음 영업일 기준으로 24시간이내 연락드리겠습니다.");
+				
+				location.reload();
+			}
+			hideloading();
+		},
+		error :function(xhr, status, error) {
+			console.log(error);
+			console.log(arguments);
+			hideloading();
+		}
+	});
+}
+
+</script>
+<style>
+/* @charset "utf-8"; */
+@import url("https://cdn.jsdelivr.net/gh/moonspam/NanumBarunGothic@latest/nanumbarungothicsubset.css");
+
+.m_br{display: inline-block;}
+
+*{box-sizing:border-box;}
+p {font-weight:normal;}
+.wrap {min-width:1263px;overflow:hidden;}
+.inner_wrap {min-width:1280px;max-width:1600px;width:100%;padding:0 40px;}
+.inner_wrap * {font-family:'NanumBarunGothic', sans-serif; }
+.flex {display:flex;}
+.blind {font-size:0;width:0;height:0;}
+.pc_v {display:block;}
+.pc_v_s {display:inline;}
+.mobile_v {display:none;} 
+
+nav {position:fixed;top:0;left:0;width:100%;min-width:1200px;background-color:rgba(0,0,0,.7);color:#fff;z-index:101;}
+nav .inner_wrap {position:relative;height:117px;justify-content:center;}
+nav .logo {max-width:100%;transform:translateY(24%);height:58px;}
+nav .tel img {max-width:100%;height:auto;width:100%;margin-top:35px;}
+nav ul {align-items:center;width:1000px;}
+nav ul li:first-child {margin-left:inherit;}
+nav ul li + li {margin-left:inherit;}
+nav ul li a {display:block;padding:20px 0;font-size:18px;}
+nav ul li.on a {color:#F36815;font-weight:bold;}
+nav .flex {justify-content:space-around;}
+.main_visual {width:100%;max-height:936px;height:936px;overflow:hidden;}
+.main_visual .pc_wrap {width:100%;height:100%;background-image:url('https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/main_visual.png');background-size:cover;background-position:center center;animation-duration:1.3s;animation-name:zoom;animation-fill-mode:forwards;animation-delay:.5s;overflow:hidden;}
+/* .main_visual .txt_wrap {flex-direction:column;} */
+.main_visual .inner_wrap {position:relative;width:100%;height:100%;overflow:hidden;}
+.main_visual .txt_wrap {position:absolute;top:309px;left:151px;}
+.main_visual .txt_wrap img {max-width:100%;display:block;animation:slidein both 0.8s 1.3s;}
+.main_visual .txt_wrap img:nth-child(1) {animation-delay:1s;opacity:1;}
+.main_visual .txt_wrap img:nth-child(2) {margin-top:6px;animation-delay:1.5s;opacity:1;}
+.main_visual .txt_wrap img:nth-child(3) {margin-top:22px;animation-delay:2s;opacity:1;}
+
+h3 {font-size:40px;color:#222;text-align:center;padding-bottom:73px;font-weight:bold;}
+h3 > p {font-size:20px;margin:17px 0 0; color:#6D6D6D;position:relative;}
+h3 > p:after {content:"";display:block;width:55px;height:7px; position:absolute;bottom:-13px;left:0;right:0;margin:0 auto;background:linear-gradient(90deg,#D80028, #F36815);transform:translateY(100%);}
+
+.section.scroll {padding-top:117px;}
+.section h3 {padding-top:122px;}
+/* #benefit */
+#benefit {padding-bottom:70px;}
+.benefit_wrap {display:flex;padding:0 10px;flex-wrap:nowrap;}
+/* .benefit_wrap > li {width:32.1%;} */
+.img_box {overflow:hidden;}
+.img_box img {object-fit:cover;height:232px;}
+.benefit_wrap > li + li {margin-left:1.2%;}
+_:-ms-fullscreen, :root .benefit_wrap{
+        overflow:hidden;
+    }
+    _:-ms-fullscreen, :root .benefit_wrap > li{
+        float: left;
+        width:32%;
+    }
+
+_:-ms-fullscreen, :root .txt_wrap strong{
+    font-size:30px; color: #FE634F; font-weight:bold; letter-spacing:-0.65px; background:none;
+} 
+
+.txt_wrap strong {font-size:28px; background: linear-gradient(94.21deg, #fe634f 11.83%, #f28e26 96.98%); font-weight: bold; -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -0.65px;}
+.txt_wrap {padding:20px 20px;}
+.txt_wrap > ul {font-size:18px;font-weight:bold;margin-top:20px;padding-left:20px;color:#6D6D6D;}
+.txt_wrap > ul li {list-style:disc;word-break:keep-all;line-height:1.3;}
+.txt_wrap > ul li span {font-size:14px;font-weight:normal;padding-left:5px;}
+.txt_wrap > ul li + li {margin-top:8px;}
+
+/* .benefit_wrap li {width:30%;} */
+
+/* #carlist */
+#carlist {background:#F2F2F2;padding-bottom:50px;}
+.slick_wrap .slick-list {max-width:1300px;width:80%;  margin:0 auto;}/*max-width:1600px;margin:0 auto;*/
+.slick_wrap .slick-slide {margin:0 10px;}/*margin:0 auto;*/
+.slick_wrap img {display:block;margin:0 auto;object-fit:contain;} /**/
+.slick-arrow {font-size:0;text-indent:-999px;background:#000;width:60px;height:60px;position:absolute;top:50%;transform:translateY(-100%);z-index:1;}
+.slick-arrow.slick-prev {left:0;}
+.slick-arrow.slick-next {right:0;}
+.slick-arrow:after {content:'';display:block;width:23px;height:23px;position:absolute;top:50%;transform:translateY(-50%) rotate(45deg);border:1px solid #fff;margin:0 auto;}
+.slick-arrow.slick-prev:after {border-right:0;border-top:0;left:23px;}
+.slick-arrow.slick-next:after {border-left:0;border-bottom:0;left:14px;}
+#carlist .txt {text-align:center;margin-top:8px;}
+#carlist .txt > span {letter-spacing:-1px;}
+#carlist .txt > span.car_n {display:inline-block;font-size:25px;font-weight:600;width:100%;vertical-align:middle;margin-bottom:7px;}
+#carlist .txt > span.car_n img {display:inline-block;vertical-align:top;margin-left:10px;}
+#carlist .txt > span:last-child {font-size:20px;font-weight:600;color:#666;}
+
+
+/* #notice */
+.notice_wrap {position:relative;display:flex;justify-content:center;}
+.notice_wrap .card {max-width:375px;min-height:375px;height:375px;padding:40px 35px; border:1px solid #EFEFEF;box-shadow:3px 3px 10px rgba(0, 0, 0, 0.1);border-bottom:5px solid #D80028;cursor:pointer;}
+.notice_wrap .card {margin:0 13px;overflow:hidden;}
+.notice_wrap .card .title {font-size:25px;color:#353535;font-weight:bold;line-height:160%;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;text-align:left;word-break:keep-all;}
+.notice_wrap .card p {min-height:137px;font-size:16px;color:#666;margin:27px 0 38px;line-height:180%;letter-spacing:-0.85px;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden;max-height:140px;}
+/* .notice_wrap .card p span {display:block;} */
+.notice_wrap .card .date:before {content:"";display:inline-block;width:21px;height:21px;background:center/cover url('https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/icon_date.png');vertical-align:sub;margin-right:7px;}
+.notice_wrap .card .date {color:#9F9F9F;font-size:15px;}
+.notice_wrap .slick-slide {margin:0 13px;}
+.notice_wrap .slick_number {text-align:center;margin:85px 0 80px;}
+.notice_wrap .slick_number li {display:inline-block;margin:0 7px;}
+.notice_wrap .slick_number li button {display:inline-block;width:40px;height:40px;font-size:20px;}
+.notice_wrap .slick_number li.slick-active button {background:#2A2A2A;color:#fff;border-radius:100%;}
+.notice_wrap .slide-btn.slick-arrow {bottom:0;}
+.notice_wrap .slick-arrow {font-size:0;text-indent:-999px;background:transparent;width:20px;height:20px;position:absolute;top:initial;bottom:-5px;transform:translateY(-100%);z-index:1;}
+.notice_wrap .slick-arrow.slick-prev {left:calc(0px + 35%);}
+.notice_wrap .slick-arrow.slick-next {right:calc(0px + 35%);}
+.notice_wrap .slick-arrow:after {content:'';display:block;width:15px;height:15px;position:absolute;top:50%;transform:translateY(-50%);border:1px solid #676767;rotate:45deg;margin:0 auto;}
+.notice_wrap .slick-arrow.slick-prev:after {left:calc(50% - 13px);}
+.notice_wrap .slick-arrow.slick-next:after {left:calc(50% - 26px);}
+
+/* #info */
+#info {margin-top:80px;display:flex;flex-flow:row-reverse;}
+#info > div {width:50%;}
+#info > div:first-child {}
+/* map */
+.map_wrapper {height:563px !important;}
+.root_daum_roughmap .wrap_map,
+.map_wrapper .root_daum_roughmap {height:100% !important;;}
+.wrap_btn_zoom,
+.wrap_controllers.hide {display:none !important;}
+.information {background:center/cover url('https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/location_bg.png');color:#fff;position:relative;width:100%;height:563px;}
+/* .information > div {width:549px;margin:0 auto;padding:123px 0 36px;} */
+.information > div {position:absolute;bottom:0;right:0;width:100%;max-width:800px;min-width:640px;padding-left:40px;}
+.information h2 {font-size:40px;margin-bottom:55px;font-weight:bold;}
+.information .flex {width:100%;height:309px;margin:0 auto; }
+.location {width:55%;min-width:380px;
+position:relative;}
+.location:before {content:"";display:block;width:1px;height:218px;background:#E9A487;position:absolute;right:0;top:0;}
+.location p {font-weight:bold;line-height:1.5;}
+.location p.tel_num {font-size:24px;}
+.location p.tel_num a {display:block;font-size:35px;}
+.location p.point {position:relative;padding-left:25px; margin-top:60px;font-size:20px;line-height:1.25;}
+.location p.point:before {content:'';display:inline-block;width:16px;height:24px;background:url('https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/icon_map.png');position:absolute;left:0;top:2px;}
+
+.sns {position:relative;width:45%;}
+.sns a {display:inline-block;width:100%;text-align:center;}
+.sns a + a {margin-top:45px;}
+.sns a:before {content:"";display:block;width:38px;height:38px;
+margin:0 auto;margin-bottom:10px;}
+
+.sns .sns_kakaoch:before {height:39px;background:center/contain url('https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/sns_kakao.png') no-repeat;}
+.sns .sns_insta:before {background:center/contain url('https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/sns_insta.png') no-repeat;}
+
+/* #counsel {margin-top:50px;} */
+.form_box {background:#F8F8F8;}
+.form_box > div {max-width:800px;min-width:640px;padding:0 40px;}
+.form_wrap {width:100%;}
+.form_wrap input[type="text"]::placeholder,
+.form_wrap textarea::placeholder,
+.form_wrap select::placeholder  {font-size:18px;color:#999;}
+.form_wrap input[type="text"],
+.form_wrap select {height:65px;border-radius:0px;border:1px solid #EFEFEF;}
+.form_wrap div + div {margin-top:11px;}
+.form_wrap .terms_list {margin-top:13px;}
+.form_wrap .terms_list + .terms_list {margin-top:0;border-top:0;}
+.form_wrap .radio_box {margin-bottom:22px;}
+.form_wrap .radio_box .sel_title {color:#333;font-size:20px;vertical-align:middle;margin-right:10%;font-weight:bold;}
+.form_wrap .radio_box span {}
+.form_wrap .radio_box span + span {margin-left:6%;}
+.form_wrap .name_box {font-size:0;}
+.form_wrap .name_box input[type="text"] {width:calc(50% - 11px);}
+.form_wrap .name_box input[type="text"]:disabled {background:#EFEFEF !important;}
+.form_wrap .name_box span + input {margin-left:21px;}
+.form_wrap input[type="radio"] {display:none;}
+.form_wrap > div:first-child > span input[type="radio"] {margin-left:37px;border:1px solid #000;}
+.form_wrap > div:first-child > span label {position:relative;padding-left:30px;display:inline-block;font-size:18px;vertical-align:middle;}
+.form_wrap > div:first-child > span label:last-child {margin-left:0;}
+.form_wrap > div:first-child > span label:before,
+.form_wrap > div:first-child > span label:after {content:"";display:inline-block;position:absolute;left:0;top:0;width:22px;height:22px;border:1px solid #999;border-radius:50%;box-sizing:border-box;}
+.form_wrap > div:first-child > span input[type="radio"]:checked {}
+.form_wrap > div:first-child > span input[type="radio"]:checked + label:before {
+background:#EC7324;border-color:#EC7324}
+.form_wrap > div:first-child > span input[type="radio"]:checked + label:after {top:6px;left:6px;width:10px;height:10px;background-color:#EFEFEF;border:0;}
+.form_wrap > div textarea {resize:none;width:100%;height:126px;border:1px solid #EFEFEF;padding:22px 27px;border-radius:0;font-size:18px;}
+.form_wrap .terms_list {border-radius:0;border:1px solid #EFEFEF;}
+.terms_header h4 {font-size:20px;}
+.form_wrap .terms_content {border-top:1px solid  #F0F0F0;margin-top:0;max-height:200px;overflow:auto;}
+  
+.form_wrap .terms_content::-webkit-scrollbar {width:8px;  /* 스크롤바의 너비 */}
+.form_wrap .terms_content::-webkit-scrollbar-thumb {height:30%; /* 스크롤바의 길이 */background:#D9D9D9; /* 스크롤바의 색상 */  border-radius:10px;}
+.form_wrap .terms_content::-webkit-scrollbar-track {background:#f3f3f3;  /*스크롤바 뒷 배경 색상*/}
+.form_wrap input[type="text"]:focus,
+.form_wrap select:focus,
+.form_wrap textarea:focus {outline:1px solid #00000060;box-shadow:inherit;}
+
+
+.inquire_btn_wrap {background:#406FF0;margin-top:17px;}
+.inquire_btn {display:flex;justify-content:center;align-items:center;height:65px;width:100%;color:#fff;font-size:22px;font-weight:bold;}
+
+.inquire_btn:after {content:"";display:block;width:26px;height:24px;background:url('https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/btn_arrow.png');background-repeat:no-repeat;margin-left:5px;margin-top:2px;}
+
+/* footer */
+.footer {padding:39px 0 57px;background:#333;}
+.footer .inner_wrap {position:relative;font-size:15px;text-align:left;display:flex;justify-content:space-between;align-items:flex-end;}
+.footer .inner_wrap img {display:block;margin-bottom:40px;}
+.footer .inner_wrap p {line-height:2;color:#999;}
+.footer .privacy_btn {border:1px solid #666;color:#fff;font-size:16px;padding:11px 20px;margin-bottom:1%;cursor:pointer;}
+
+/* 팝업 */
+.modal-header h3 {text-align:left;}
+
+/* 공지사항팝업 */
+.modal-pop.modal-notice {display:none;position:fixed;left:0;right:0;top:50%;margin-left:inherit;width:800px;z-index:1003;background:#fff;margin:0 auto;transform:translateY(-50%);}
+.modal-pop.modal-notice {max-width:1000px;height:500px !important;}
+.modal-pop.modal-notice .modal-box {position:relative;padding:inherit;}
+.modal-pop.modal-notice .modal-header {border:0;}
+.modal-pop.modal-notice .modal-header {margin-bottom:0;border-bottom:0;background:linear-gradient(90.01deg, #D0162E, #EC7322);height:72px;display:flex;align-items:center;}
+.modal-pop.modal-notice .modal-header .modal_title {font-size:30px;font-weight:bold;color:#fff;padding-left:50px;;}
+.modal-pop.modal-notice .modal-close {right:25px;top:0;display:block;width:41px;height:41px;background-image:none;font-size:0;text-indent:-999px;transform:translateY(40%);}
+.modal-pop.modal-notice .modal-close:after,
+.modal-pop.modal-notice .modal-close:before {margin-top:50%;content:'';position:absolute;right:0;top:0;display:block;width:34px;height:2px;background:#fff;transform:rotate(45deg);}
+.modal-pop.modal-notice .modal-close:before {transform:rotate(-45deg);}
+.modal-pop.modal-notice article {text-align:left;padding:58px 50px;}
+.modal-pop.modal-notice .cont_header {border-bottom:1px solid #E3E3E3;}
+.modal-pop.modal-notice .cont_title {font-size:30px;font-weight:bold;}
+.modal-pop.modal-notice .cont_date {margin:22px 0 23px;color:#6D6D6D;font-size:15px;}
+.modal-pop.modal-notice .cont_txt {max-height:190px;padding-right:2%;overflow-y:scroll;margin-top:40px;font-size:18px;color:#575757;line-height:1.5;word-break:keep-all;}
+.modal-pop.modal-notice .cont_txt::-webkit-scrollbar {width:8px;  /* 스크롤바의 너비 */}
+.modal-pop.modal-notice .cont_txt::-webkit-scrollbar-thumb {height:30%; /* 스크롤바의 길이 */
+  background:#D9D9D9; /* 스크롤바의 색상 */  border-radius:10px;}
+  .modal-pop.modal-notice .cont_txt::-webkit-scrollbar-track {background:#fff;  /*스크롤바 뒷 배경 색상*/}
+  .dimd {display:none;position:fixed;left:0;top:0;width:100%;height:100%;z-index:998;background:#000;opacity:.7;}
+
+.quick_btn_wrap {position:fixed;top:calc(96% - (85px * 3 + 4px));right:calc(7% - 85px);width:85px;height:calc(85px * 2);background-size:100%;font-size:0;text-indent:-999px;z-index:999;}
+.quick_btn_wrap a {display:block;width:85px;height:85px;background-size:100%;font-size:0;text-indent:-999px;}
+.quick_btn_wrap a + a {margin-top:4px;}
+.quick_btn_wrap .q_counsel {background-image:url('https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/q_counsel.png');}
+.quick_btn_wrap .quick-top {background-image:url('https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/q_top.png');border:1px solid #ddd;border-radius:50%;opacity:0;transition:opacity .3s;}
+.quick_btn_wrap .quick-top.fix {opacity:1;}
+
+/* mobile */
+@media screen and (max-width:1280px) and (min-width:768px) {
+    .slick_wrap .slick-list {max-width:995px;}
+    .slick_wrap .slick-arrow {width:50px;height:50px;}
+    .slick-arrow:after  {width:18px;height:18px;}
+    .slick-arrow.slick-prev:after {left:20px;}
+    .slick-arrow.slick-next:after {left:12px;}
+    .m_br{display: inline-block; padding-left: 0 !important;  }
+    
+}
+@media screen and (max-width:1280px) {
+    _:-ms-fullscreen, :root .benefit_wrap{
+        overflow:hidden;
+    }
+    _:-ms-fullscreen, :root .benefit_wrap > li{
+        float: left;
+        width:32%;
+    }
+}
+@media screen and (max-width:1024px) {
+    
+  html,
+  body{width:100%;font-size:15px;}
+  .pc_v,
+  .pc_v_s {display:none;}
+  .mobile_v {display:block; text-align: center;}
+  .wrap {min-width:360px}
+  .inner_wrap {width:100%;min-width:320px;}/*padding:0;min-width:320px*/
+  
+  nav {min-width:100%;position:absolute;;}
+  nav .logo {height:56px;transform:translateY(50%)}
+  nav > .flex {flex-direction:column;height:auto;align-items:center;margin-left:inherit;padding:0;}
+  nav .tel img {display:none;}
+  nav img {height:100%;}
+  nav ul.flex {margin-left:inherit;width:100%;justify-content:space-around;padding:inherit;margin-top:5%;}
+  nav ul li:last-child {display:none !important;}
+  nav ul li a {letter-spacing:-1px;padding:1.33rem 0;font-size:1.14rem;} 
+  nav ul.flex.fixed {position:fixed;top:0; left:0; background-color:#ED7423;display:block;font-size:0;box-shadow:0px 4px 10px 0px #2D2D2D40;margin-top:0;}
+  nav ul.flex.fixed li.on {background-color:#fff;}
+  nav ul.flex.fixed li.on a {color:#ED7423;}
+  nav ul.flex.fixed li.on_i {background-color:#fff;}
+  nav ul.flex.fixed li.on_i a {color:#ED7423;}
+  nav ul.flex.fixed li:first-child {margin-left:inherit;width:34%;}
+  nav ul.flex.fixed li {display:inline-block;text-align:center;width:22%;}
+  nav ul.flex.fixed li + li {margin-left:inherit;}
+
+  .section.scroll {padding-top:52px;}
+
+  .main_visual {background:none;max-width:inherit;width:100%;max-height:inherit;height:auto;overflow:hidden;}
+  .main_visual .mobile_v {width:100%;position:relative;overflow:hidden;}
+  .main_visual .visual_img {width:100%;animation-duration:1s;animation-name:zoom;animation-fill-mode:forwards;}
+  .main_visual .txt_wrap {left:7.5%;top:70%;}
+  h3 {font-size:2rem;}
+  h3 > p {font-size:1.333rem;}
+  h3 > p:after {width:calc(100px / 2);height:calc(7px / 2);}
+  .section h3 {padding:3.333rem 0 4rem;}
+
+  #benefit {padding-bottom:2.666rem;}
+  .benefit_wrap {padding:0;flex-wrap:wrap;}
+  .img_box {overflow:hidden;width:50%;}
+  .img_box img {object-fit:cover;height:inherit;}
+  .benefit_wrap > li {display:flex;justify-content:space-between;align-items:flex-start;}
+  .benefit_wrap > li + li {margin-left:0;margin-top:1rem;}
+  .txt_wrap {padding:1rem 2rem 0;width:50%;}
+  .txt_wrap strong {font-size:1.45rem;}
+  .txt_wrap > ul {font-size:1.134rem;font-weight:bold;margin-top:0.8rem;padding-left:1rem;color:#6D6D6D;}
+  .txt_wrap > ul li {margin-left:10px;}
+  .txt_wrap > ul li span {margin-top:4px;font-size:0.933rem;}
+  .txt_wrap > ul li + li {margin-top:8px;}
+  
+  .slick_wrap .slick-slide {margin:0 .3%;}
+  .slick-arrow {width:25px;height:25px;}
+  .slick-arrow:after {width:8px;height:8px;top:25px;}
+  .slick-arrow.slick-next {right:0;}
+  .slick-arrow.slick-prev {left:0;}
+  .slick-arrow.slick-prev:after {left: 23px;px;}
+  .slick-arrow.slick-next:after {left:18px;}
+  #carlist .txt {margin-top:4px;}
+  #carlist .txt > span {letter-spacing:-1px;}
+  #carlist .txt > span.car_n {font-size:1.2rem;margin-top:0.666rem;margin-bottom:1px;}
+  #carlist .txt > span.car_n img {margin-left:4px;width:15%;vertical-align:middle;min-width:26px;margin-bottom:5px;}
+  #carlist .txt > span:last-child {font-size:0.933rem;font-weight:600;color:#666;margin-top:0.3rem;display: block;}
+
+  .notice_wrap .card {max-width:340px;min-height:300px;height:300px;}
+  .notice_wrap .card .title {font-size:1.266rem;-webkit-line-clamp:1;}
+  .notice_wrap .card p {margin:1rem 0 1.6rem;font-size:1rem;}
+
+  #info {margin-top:45px;display:block;padding:0;}
+  #info > div {width:100%;}
+  .information > div {width:100%;height:222px;position:inherit;max-width:inherit;min-width:inherit;}
+  .map_wrapper {height:216px !important;overflow:hidden;margin-top:50px;} 
+  .map_wrapper .map {height:216px !important;overflow:hidden;} 
+
+  .information {height:inherit;background:center/cover url('https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/location_bg_m.png');color:#fff;}
+  .information > div {width:inherit;margin:0 auto;padding:calc(67px/2) calc(40px) calc(61px/2)  calc(40px);}
+  .information h2 {font-size:22px;margin-bottom:18px;}
+  .information .flex {width:100%;height:auto;margin:0 auto; }
+  .location {width:60%;padding-bottom:20px;
+  min-width:inherit;}
+  .location:before {right:-5px;height:117px;}
+  .location p {font-weight:bold;line-height:1.5;}
+  .location p.tel_num {font-size:17px;}
+  .location p.tel_num a {display:block;font-size:20px;}
+  .location p.point {font-size:14px;padding-left:15px;margin-top:16px;}
+  .location p.point:before {content:'';display:inline-block;width:11px;height:calc(33px / 2);background-size:100%;}
+  .sns {width:40%;font-size:0;position:absolute;right:0;}
+  .sns:before{height:calc(234px/ 2);display:inline-block;}
+  .sns a {display:inline-block;width:50%;text-align:center;font-size:14px;padding-top:20px;}
+  .sns a + a {margin-top:inherit;}
+  .sns a:before{content:"";display:block;width:24px;height:19px;}
+  .sns .sns_kakaoch:before {height:calc(50px/2);background:center/contain url('https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/sns_kakao.png') no-repeat;}
+  .sns .sns_insta:before {height:calc(50px/2); background:center/contain url('https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/sns_insta.png') no-repeat;} 
+  .form_box > div {max-width:inherit;min-width:inherit;padding:inherit;}
+  .form_box h3 {margin-top:0;padding-top:50px;padding-bottom:10px;margin-bottom:40px;position:relative;}
+  .form_box h3:after{content:"";display:block;width:calc(55px / 2);height:calc(7px / 2);position:absolute;bottom:-13px;left:0;right:0;margin:0 auto;background:linear-gradient(90deg,#d80028,#f36815);}
+  .form_wrap input[type="text"]::placeholder,
+  .form_wrap textarea::placeholder,
+  .form_wrap select::placeholder  {font-size:13px;color:#999;}
+  .form_wrap input[type="text"], .form_wrap select, .form_wrap textarea {font-size:13px;padding:0 20px;}
+  .form_wrap {width:inherit;max-width:100%;margin:0 auto;padding:0 40px;}
+  .form_wrap input[type="text"],
+  .form_wrap select {height:35px;}
+  .form_wrap div + div {margin-top:10px;}
+  .form_wrap .radio_box {margin-bottom:15px;}
+  .form_wrap .radio_box .sel_title {font-size:14px;font-weight:bold;}
+  .form_wrap > .radio_box:first-child > span input[type="radio"] {margin-left:inherit;vertical-align:middle;}
+  .form_wrap > .radio_box:first-child > span label {position:relative;padding-left:15px;display:inline-block;font-size:14px;vertical-align:middle;}
+
+  .form_wrap > .radio_box:first-child > span label:last-child {padding-left:20px;}
+  .form_wrap > .radio_box:first-child > span label:before,
+  .form_wrap > .radio_box:first-child > span label:after {width:14px;height:14px;top:2px;}
+  .form_wrap > .radio_box:first-child > span input[type="radio"]:checked {}
+  .form_wrap > .radio_box:first-child > span input[type="radio"]:checked + label:after {top:5px;left:3px;width:8px;height:8px;background-color:#EFEFEF;border:0;}
+
+  .form_wrap > div textarea {resize:none;width:100%;height:63px;padding:11px 18px;font-size:13px;}
+  .form_wrap .terms_header {position: relative;height: 44px;padding: 14px 14px 14px 50px;display: flex;}
+  .form_wrap .terms_list {border-radius:0;border:1px solid #EFEFEF;}
+  .checkbox {left:24px;top:58%;}
+  .checkbox input[type=checkbox] {opacity:0;}
+  .checkbox input[type=checkbox] + label:before,
+  .checkbox input[type=checkbox]:checked + label:after {top:-4px;}
+  .checkbox input[type=checkbox] + label:before {width:22px;height:22px;background-position:-1098px -715px;-webkit-background-size:1130px 1073px;background-size:1130px 1073px;}
+  .checkbox input[type=checkbox]:checked + label:after {width: 22px;height: 22px;background-position:-1098px -693px;-webkit-background-size:1130px 1073px;background-size:1130px 1073px;}
+
+  _:-ms-fullscreen, :root .benefit_wrap{
+        overflow:hidden;
+    }
+    _:-ms-fullscreen, :root .benefit_wrap > li{
+        float: none;
+        width:auto;
+    }
+
+  .terms_content li {font-size:13px;}
+  .form_wrap div:first-child input[type="text"] {width:38%;}
+  .form_wrap > div:first-child > span {margin-left:3%;}
+  .form_wrap > div:first-child > span + span {margin-left:5%;}
+  .terms_header h4 {font-size:13px;}
+  .inquire_btn {height:calc(114px /2);font-size:16px;}
+  .inquire_btn:after {background-size:calc(25.6px / 2) 12px;background-position:60% 50%;margin-bottom:0;}
+
+  .footer {padding:15px 40px 20px;padding-bottom:90px;}
+  .footer .inner_wrap {position:relative;font-size:12px;text-align:left;display:flex;justify-content:space-between;align-items:flex-end;display:block;padding:0;}
+  .footer .inner_wrap img {max-width:50%;margin-bottom:20px;}
+  .footer .inner_wrap p {line-height:1.5;}
+  .footer .inner_wrap p:last-child {margin-top:.5rem;}
+  .footer .privacy_btn {font-size:12px;padding:5px 8px;position:absolute;top:17px;right:0;}
+
+  .modal-pop.modal-notice {display:none;position:fixed;left:0;right:0;top:50%;margin-left:inherit;width:100%;z-index:1003;background:#fff;margin:0 auto;transform:translateY(-50%);width:80%;height:70% !important;max-height:450px;}
+  .modal-pop.modal-notice .modal-box {position:relative;padding:inherit;height:100%;overflow:hidden;}
+  .modal-pop.modal-notice .modal-header {margin-bottom:0;border-bottom:0;height:40px;display:flex;align-items:center;border:0;position:absolute;left:0;top:0;width:100%;z-index:1;}
+  .modal-pop.modal-notice .modal-header .modal_title {font-size:16px;word-break:keep-all;padding-left:25px;}
+  .modal-pop.modal-notice .modal-close {right:25px;top:0;display:block;width:41px;height:41px;background-image:none;font-size:0;text-indent:-999px;transform:translateY(0);}
+  .modal-pop.modal-notice .modal-close:after,
+  .modal-pop.modal-notice .modal-close:before {margin-top:50%;content:'';position:absolute;right:0;top:0;display:block;width:16px;height:2px;background:#fff;transform:rotate(45deg);}
+  .modal-pop.modal-notice .modal-close:before {transform:rotate(-45deg);}
+  .modal-pop.modal-notice article {text-align:left;padding:69px 25px 30px;overflow:hidden;position:relative;
+  height:100%;}
+  .modal-pop.modal-notice .cont_header {border-bottom:1px solid #E3E3E3;}
+  .modal-pop.modal-notice .cont_title {font-size:16px;font-weight:bold;line-height:1.3;letter-spacing:-1.6px;}
+  .modal-pop.modal-notice .cont_date {margin:22px 0 23px;color:#6D6D6D;font-size:12px;}
+  .modal-pop.modal-notice .cont_txt {margin-top:20px;font-size:14px;color:#575757;line-height:1.5;word-break:keep-all;max-height:240px;padding-right:0;overflow:hidden;}
+  .modal-pop.modal-notice .cont_txt > div {height:90%;max-height:220px;padding-right:2%;overflow-y:scroll;padding-bottom:20px;}
+  .modal-pop.modal-notice .cont_txt p {line-height:1.5;height:100%;}
+  .modal-pop.modal-notice .cont_txt::-webkit-scrollbar {width:8px;  /* 스크롤바의 너비 */}
+  .modal-pop.modal-notice .cont_txt::-webkit-scrollbar-thumb {height:30%; /* 스크롤바의 길이 */
+      background:#D9D9D9; /* 스크롤바의 색상 */  border-radius:10px;}
+  .modal-pop.modal-notice .cont_txt::-webkit-scrollbar-track {  background:#fff;  /*스크롤바 뒷 배경 색상*/}
+  .dimd {display:none;position:fixed;left:0;top:0;width:100%;height:100%;z-index:1000;background:#000;opacity:.7;}
+  /* bg */
+  .fix_btn_wrap {font-size:0;position:fixed;bottom:0;left:0;width:100%;background:#fff;z-index:999;}
+  .fix_btn_wrap a {display:inline-block;width:50%;font-size:17px;text-align:center;padding:20px 0;font-weight:bold;border:1px solid #F33A3A;}
+  .fix_btn_wrap a:first-child {background:#F33A3A;color:#fff;;}
+  .fix_btn_wrap a:last-child {color:#F33A3A;}
+  .fix_btn_wrap .icon.tel {display:inline-block;height:16px;width:calc(39px / 2);background-image:url('https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/icon_tel.png');background-size:100%;vertical-align:bottom;margin-right:3px;}
+  .quick_btn_wrap {top:calc(96% - (44px * 3 + 25px));height:calc(44px * 2);width:56px;right:2%;}
+  .quick_btn_wrap a {width:56px;height:56px;}
+  .quick_btn_wrap .q_counsel {border: 1px solid #ddd; border-radius: 50%; background-image:url('https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/q_counsel_m.png');}
+  .quick_btn_wrap .quick-top {background-image:url('https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/q_top_m.png');}
+  
+}
+
+@media screen and (max-width:768px) {
+    .m_br{display: inline-block; padding-left: 5px !important;}
+  html,
+  body{width:100%;}
+  .inner_wrap {padding:0 20px;}
+  nav {min-width:100%;position:absolute;;}
+  nav .logo {height:calc(70px / 2);max-width:calc(249px / 2);transform:translateY(50%)}
+  nav ul li a {font-size:12px;letter-spacing:-1px;} 
+
+  .section.scroll {padding-top:52px;}
+
+  .main_visual {background:none;max-width:inherit;width:100%;max-height:inherit;height:auto;overflow:hidden;}
+  .main_visual .mobile_v {width:100%;position:relative;overflow:hidden;}
+  .main_visual .visual_img {width:100%;animation-duration:1s;animation-name:zoom;animation-fill-mode:forwards;}
+  .main_visual .txt_wrap {left:7.5%;top:70%;}
+  
+  h3 {font-size:26px;}
+  h3 > p {font-size:13px;}
+  h3 > p:after {width:calc(55px / 2);height:calc(7px / 2);}
+  .section h3 {padding:50px 0 40px;}
+
+  #benefit {padding-bottom:33px;}
+  .benefit_wrap {justify-content:center;}
+  .img_box {overflow:hidden;}
+  .img_box img {object-fit:cover;height:232px;}
+  .benefit_wrap > li {flex-wrap:wrap;}
+  
+  .img_box {overflow:hidden;width:auto;}
+  .img_box img {object-fit:cover;height:inherit;}
+  .benefit_wrap > li {display:block;}
+  .benefit_wrap > li + li {margin-left:0;margin-top:1rem;}
+  .txt_wrap {padding:1rem 0 0;width:auto;}
+  .txt_wrap > ul li {margin-left:4px;}
+  .txt_wrap strong {font-size:18px;}
+  .txt_wrap > ul {font-size:15px;font-weight:bold;margin-top:8px;padding-left:15px;color:#6D6D6D;}
+  .txt_wrap > ul li {}
+  .txt_wrap > ul li span {margin-top:4px;font-size:11px;}
+  .txt_wrap > ul li + li {margin-top:4px;}
+  .txt_wrap li::marker {font-size:12px;}
+  #carlist .inner_wrap {padding:0;}
+  .notice_wrap {display:block;}
+  .notice_wrap .card {margin:0 15px 7px;max-width:100%;min-height:84px;height:84px;padding:15px 14px;border:1px solid rgb(239 239 239 / 61%);box-shadow:3px 3px 10px rgb(0 0 0 / 7%);border-bottom:0;}
+  .notice_wrap .card p {display:none;}
+  .notice_wrap .card .title {font-size:15px;line-height:1.5;letter-spacing:-.7px;}
+  .notice_wrap .card .date {display:block;margin-top:14px;font-size:10px}
+  .notice_wrap .card .date:before {width:11px;height:11px;background:center/100% url('https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/icon_date.png') no-repeat;vertical-align:bottom;margin-right:3px}
+  
+  .information h2 {font-size:20px;}
+
+  .location p.tel_num {font-size:13px;}
+  .location p.tel_num a {font-size:18px;}
+  .location p.point {font-size:11px;}
+  .sns a{font-size: 10px;}
+  .sns a:before{content:"";display:block;width:19px;height:19px;}
+  .sns .sns_kakaoch:before {height:calc(39px/2);}
+  .sns .sns_insta:before {height:calc(39px/2); } 
+
+  .information > div {width:inherit;margin:0 auto;padding:calc(67px/2) calc(47px/2) calc(61px/2)  calc(47px/2);}
+  .form_wrap {padding:0 20px;}
+  .form_box h3 {margin-top:0;padding-top:50px;padding-bottom:0;margin-bottom:40px;position:relative;}
+
+  .footer {padding:15px 20px 20px;padding-bottom:90px;}
+}
+
+@media screen and (max-width:690px) {
+    .main_visual .txt_wrap img:nth-child(1) {max-width:calc(205px / 2);}
+  .main_visual .txt_wrap img:nth-child(2) {max-width:calc(341px / 2);}
+  .main_visual .txt_wrap img:nth-child(3) {max-width:calc(233px / 2);margin-top:11px;}
+}
+
+@media screen and (max-width:767px) {
+    .slick-arrow.slick-next:after {left:6px;top:50%;}
+    .slick-arrow.slick-prev:after {left:10px;top:50%;}
+}
+
+@media screen and (max-width:384px) {
+  nav ul.flex.fixed li {letter-spacing:-1.8px}
+}
+
+@keyframes txtTop {
+  0% {transform:translateY(50%);opacity:0;}
+  100% {transform:translateY(0);opacity:1;}
+}
+@keyframes slidein {
+  0% {
+      transform:translateX(-50%);
+        opacity:0;
+    }
+    100% {
+      transform:translateX(0);
+        opacity:1;
+    }
+}
+@keyframes zoom {
+  0% {transform:scale(1.2);}
+  100% {transform:scale(1);}
+}
+</style>
+</head>
+
+<body>
+    <form name="frm" id="frm" action="" method="POST">
+		<input type="hidden" name="userGroup" value="DKY" />
+		<input type="hidden" id="agreeYn1" name="agreeYn1" value="N" />
+		<input type="hidden" id="agreeYn3" name="agreeYn3" value="N" />
+		<input type="hidden" id="hpNo" name="hpNo" value = ""/>
+		<input type="hidden" id="custClsCd" name="custClsCd" value=""/>
+		<input type="hidden" name="counsel_mode" value="none" />
+    
+    <div class="wrap">
+        <nav>
+        <div class="inner_wrap flex">
+            <img src="https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/logo.png" alt="SK렌터카 대구경북" class="logo">
+            <ul class="menu flex">
+              <li><a href="javascript:;" class="benefit" >신차장기 렌터카 혜택</a></li>
+              <li><a href="javascript:;" class="carlist">인기차종</a></li>
+              <li><a href="javascript:;" class="notice">공지사항</a></li>
+              <li><a href="javascript:;" class="map">오시는길</a></li>
+              <li class="pc_v"><a href="javascript:;" class="counsel">빠른상담</a></li>
+            </ul>
+            <a href="tel:053-743-9119" class="tel"><img src="https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/tel.png?v=1" alt="대표전화 053-743-9119" ></a>
+        </div>
+        </nav>
+        </nav>
+        <div class="main_visual">
+            <div class="pc_wrap pc_v">
+                <div class="inner_wrap">
+                    <div class="txt_wrap pc_v">
+                    <img src="https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/main_txt01.png" alt="fast is best">
+                    <img src="https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/main_txt02.png" alt="누구보다 빠르게 내 차 받는방법">
+                    <img src="https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/main_txt03.png" alt="sk렌터카">
+                    </div>
+                </div>
+            </div>
+            <div class="mobile_wrap mobile_v">
+                <img src="https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/main_visua_m.png" alt="" class="visual_img">
+                <div class="txt_wrap">
+                    <img src="https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/main_txt01_m.png" alt="">
+                    <img src="https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/main_txt02_m.png" alt="">
+                    <img src="https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/main_txt03_m.png" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="section" id="benefit">
+            <div class="inner_wrap">
+                <h3>SK렌터카 대구경북영업팀은<p>SK렌터카의 다양한 신차 구매 혜택을 소개합니다.</p></h3>
+                <div>
+                    <ul class="benefit_wrap">
+                    <li>
+                        <div class="img_box">
+                        <img src="https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/benefit_01.png" alt="">
+                        </div>
+                        <div class="txt_wrap">
+                        <strong>본사 직영 관리</strong>
+                        <ul>
+                            <li>영업소가 아닌 본사에서 직접 관리</li>
+                            <li>집앞까지 찾아가는 딜리버리 서비스</li>
+                            <li>어플리케이션으로 똑똑한 차량 관리</li>
+                        </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="img_box">
+                        <img src="https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/benefit_02.png" alt="">
+                        </div>
+                        <div class="txt_wrap">
+                        <strong>유지보수</strong>
+                        <ul>
+                            <li>국내 최다 정비소 보유 <span class="m_br">스피드메이트 전국 700여개</span></li>
+                            <li>24시간 고객센터 운영 <span class="m_br">빠르고 간편한 사고처리</span></li>
+                            <li>신속한 대차 서비스 <span class="m_br">업계 최다 대차 지급 영업망 보유</span></li>
+                        </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="img_box">
+                        <img src="https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/benefit_03.png" alt="">
+                        </div>
+                        <div class="txt_wrap">
+                        <strong>4<span>無</span></strong>
+                        <ul>
+                            <li>취등록세 공채 취급수수료 부담 無</li>
+                            <li>자동차세 보험료 재산세 납입 無</li>
+                            <li>사고 보험 수가 인상 無</li>
+                            <li>경차, 승합차 부가세 無</li>
+                        </ul>
+                        </div>
+                    </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="section" id="carlist">
+            <div class="inner_wrap">
+                <h3>인기 차종 BEST 6<p>SK렌터카 대구경북팀에서 인기 차종을 안내 해드립니다.</p></h3>
+                <div class="slick_wrap">
+                    <div>
+                        <img src="https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/car01.png" alt="아이오닉 5">
+                        <div class="txt">
+                            <span class="car_n">아이오닉 5<img src="https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/deal.png" alt=""></span>
+                            <span>SUV / 전기차</span>
+                        </div>
+                    </div>
+                    <div>
+                        <img src="https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/car02.png" alt="아이오닉 6">
+                        <div class="txt">
+                            <span class="car_n">아이오닉 6<img src="https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/deal.png" alt=""></span>
+                            <span>중형 / 전기차</span>
+                        </div>
+                    </div>
+                    <div>
+                        <img src="https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/car03.png" alt="EV6">
+                        <div class="txt">
+                            <span class="car_n">EV6</span>
+                            <span>준중형 / 전기차</span>
+                        </div>
+                    </div>
+                    <div>
+                        <img src="https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/car04.png" alt="니로 EV">
+                        <div class="txt">
+                            <span class="car_n">니로 EV<img src="https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/deal.png" alt=""></span>
+                            <span>SUV / 전기차 </span>
+                        </div>
+                    </div>
+                    <div>
+                        <img src="https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/car06.png" alt="GV60">
+                        <div class="txt">
+                            <span class="car_n">GV60</span>
+                            <span>중형 / 전기차 </span>
+                        </div>
+                    </div>
+                    <div>
+                        <img src="https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/car05.png" alt="폴스타2">
+                        <div class="txt">
+                            <span class="car_n">폴스타2<img src="https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/deal.png" alt=""></span>
+                            <span>SUV / 전기차 </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section" id="notice">
+            <div class="inner_wrap">
+                <h3>공지사항<p>SK렌터카 대구경북팀의 소식을 빠르게 만나보세요.</p></h3>
+                <div class="notice_wrap">
+                    <div class="card">
+                        <strong class="title">대구 국제 미래 모빌리티 엑스포 참가</strong>
+                        <p>
+                        안녕하세요! <br>
+                        SK렌터카 대구경북영업팀입니다.  <br> <br>
+                        
+                        10월27일부터 3일간 대구엑스코에서 개최 되는 “대구국제미래자동차엑스포” 에 참가하게 되었습니다. <br>
+                        두 번 다시 없을 혜택이 많이 준비되어 있으니 많은 관심과 방문 부탁드립니다!
+                        <br> <br>
+                        감사합니다.
+                        </p>
+                        
+                        <span class="date">2022.10.20</span>
+                    </div>
+                    <div class="card">
+                        <strong class="title">SK렌터카 대구경북영업팀 홈페이지 오픈</strong>
+                        <p>
+                        안녕하세요.  <br>
+                        SK렌터카 대구경북영업팀의 홈페이지가 새단장하였습니다.  <br>
+                        앞으로 많은 관심 부탁드립니다! <br> <br>
+                        감사합니다.
+                        </p>
+                        <span class="date">2022.10.20</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex section" id="info">
+            <div class="form_box" id="counsel">
+                <div>
+                    <h3>온라인 문의</h3>
+                    <div class="form_wrap">
+                        <div class="radio_box">
+                            <span class="sel_title">구분</span>
+                            <span>
+                                <input type="radio" name="distinction" id="personal" value="P" checked>
+                                <label for="personal">개인</label>
+                            </span>
+                            <span>
+                                <input type="radio" name="distinction" id="business" value="B">
+                                <label for="business">개인사업자</label>
+                            </span>
+                            <span>
+                                <input type="radio" name="distinction" id="corporation" value="C">
+                                <label for="corporation">법인</label>
+                            </span>
+                        </div>
+                        <div class="name_box">
+                            <span class="compulsory distinction_name">
+                                <input type="text" id = "cmpyNm" name="cmpyNm" placeholder="상호명" maxlength="" value="" disabled/>
+                            </span>
+                            <input type="text" id="userNm" name="userNm" placeholder="이름 입력" maxlength="10" value="" onkeyup="javascript:checkingName()">
+                        </div>
+                        <div class="phone_num">
+                            <select id="hpNo_1" name="hpNo_1">
+                            <option value="010">010</option>
+                            <option value="070">070</option>
+                            <option value="011">011</option>
+                            <option value="016">016</option>
+                            <option value="017">017</option>
+                            <option value="018">018</option>
+                            <option value="019">019</option>
+                            </select>
+                            -
+                            <input id="hpNo_2" name="hpNo_2" type="text" maxlength="4" onkeypress="return fn_press(event, 'numbers');" onkeydown="fn_press_han(this);">
+                            -
+                            <input id="hpNo_3" name="hpNo_3" type="text" maxlength="4" onkeypress="return fn_press(event, 'numbers');" onkeydown="fn_press_han(this);">
+                        </div>
+                        <div class="">
+                            <input class="car_input" type="text" id="carNm" name="carNm" placeholder="관심차종">
+                        </div>
+                        <div class="">
+                            <textarea name="contents" id="contents" placeholder="문의사항"></textarea>
+                        </div>
+                        <div class="terms_list">
+                            <div class="terms_header subject1">
+                                <h4>개인정보 수집 및 이용동의
+                                <strong class="color_font">(필수)</strong>
+                                <p class="plus"></p><legend></legend>
+                                </h4>
+                                <span class="checkbox v2">
+                                <input type="checkbox" id="term-check-2">
+                                <label class="label" for="term-check-2"></label>
+                                </span>
+                            </div>
+                            <div class="terms_content notice1" style="display:block;">
+                            <ul>
+                                <li>
+                                <strong>수집항목(필수)</strong>
+                                이름, 휴대폰번호
+                                </li>
+                                <li>
+                                <strong>이용목적</strong>
+                                차량 대여상품 상담 및 판매
+                                </li>
+                                <li>
+                                <strong>보유 및 이용기간</strong>
+                                최종 상담 진행일로부터 1년 또는 동의 철회시까지
+                                </li>
+                            </ul>
+                            </div> 
+                        </div>
+                        <div class="terms_list v3">
+                            <div class="terms_header subject2">
+                            <h4>마케팅 활용 동의<strong>(선택)</strong> <p class="minus"></p></h4>
+                            <span class="checkbox v2">
+                                <input type="checkbox" id="select-terms4">
+                                <label class="label" for="select-terms4"></label>
+                            </span>
+                            </div>
+                            <div class="terms_content notice2" style="">
+                            <ul>
+                                <li>
+                                <strong>활용항목</strong>
+                                휴대폰번호
+                                </li>
+                                <li>
+                                <strong>이용목적</strong>
+                                <ul class="small_list">
+                                    <li>프로모션 안내</li>
+                                    <li>신제품 및 신규서비스 안내</li>
+                                    <li>광고성 정보 전송</li>
+                                </ul>
+                                </li>
+                                <li>
+                                <strong>보유 및 이용기간</strong>
+                                최종 상담 진행일로부터 1년 또는 동의 철회시까지
+                                </li>
+                            </ul>
+                            </div>
+                        </div>
+                        <div class="inquire_btn_wrap">
+                            <a href="javascript:;" class="inquire_btn" onclick="reqCounsel()">등록하기</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="" id="map">
+                <div class="map_wrapper">
+                    <div id="daumRoughmapContainer1665737077543" class="root_daum_roughmap root_daum_roughmap_landing" style="width:100%;"></div>
+                </div>
+                <div class="information">
+                    <div>
+                        <h2>SK렌터카 대구경북팀</h2>
+                        <div class="flex">
+                            <div class="location">
+                                <div>
+                                    <p class="tel_num">상담하기 대표전화<a href="tel:053-743-9119">053-743-9119</a></p>
+                                    <p class="point">대구광역시 북구 엑스코로 10 서관,<br>414호 (대구경북영업팀)</p>
+                                </div>
+                            </div>
+                            <div class="sns">
+                                <a href="http://pf.kakao.com/_axaPxjs" class="sns_kakaoch" target="_blank">카카오채널</a>
+                                <a href="https://www.instagram.com/SK_renbujang" class="sns_insta" target="_blank">인스타그램</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="inner_wrap">
+                <div>
+                <img src="https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/foot_ogo.png" alt="SK렌터카 대구경북">
+                <p>주소 : 대구광역시 북구 엑스코로 10 서관, 414호 (대구경북영업팀)</p>
+                <p>대표 : 황일문 │ TEL : 053-743-9119 <span class="pc_v_s"> │ </span><br class="mobile_v">이메일 : yuri22@sk.com │ 사업자번호 : 113-81-32864</p>
+                <p>Copyright ⓒ SK렌터카 대구경북 All Rights Reserved.</p>
+                </div>
+                <!-- <span onclick='javascript:popupPrivacy();' class="privacy_btn">개인정보 처리방침</span> -->
+                <a href="javascript;" class="privacy_btn" target="_blank">개인정보 처리방침</a>
+            </div>
+        </div>
+        <div class="mobile_v fix_btn_wrap">
+            <a href="javascript:;" class="counsel_btn">상담신청</a>
+            <a href="tel:053-743-9119"><i class="icon tel"></i>전화상담</a>
+        </div>
+    
+        <!-- modal-pop 공지사항 자세히보기 //start -->
+        <div id="modalNotice" class="modal-pop modal-notice">
+        <!-- style="display:block" -->
+            <div class="modal-box">
+            <div class="modal-header">
+                <a href="#" class="modal-close" onclick = "popupClose()">레이어 닫기</a>
+                <h4 class="modal_title">공지사항</h4>
+            </div>
+            <article>
+                <div class="cont_header">
+                <h5 class="cont_title"></h5>
+                <p class="cont_date"></p>
+                </div>
+                <div class="cont_txt">
+                    <div>
+                        <p></p>
+                    </div>
+                </div>
+
+            </article>
+            </div>
+        </div>
+        <div class="dimd"></div>
+        <!-- modal-pop//end -->	
+        
+        <!-- modal-pop 신청완료 //start -->
+        <div id="modal-counsel-end" class="modal-pop modal-comp">
+            <div class="modal-box">
+                <div class="modal-header">
+                    <a href="javascript:;" class="modal-close" onclick="popupClose()">레이어 닫기</a>
+                    <h3><img src="https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/logo.png" alt=""></h3>
+                </div>
+                <article>
+                    <div>
+                        <p><img src="https://www.skcarrental.com/resources/img/popup/counsel_msg.png" alt="신청완료 전문 상담원이 빠른 연락 드리겠습니다."></p>
+                        <div class="btn_box">
+                                <button onclick="popupOpenSuccess()" type="button" class="btn">닫기</button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+        <!-- <div class="dimd"></div> -->
+        <!-- modal-pop//end -->	
+        <div class="quick_btn_wrap">
+            <a href="javascript:;" class="q_counsel">빠른상담</a>
+            <a href="javascript:;" class="btn-top quick-top">TOP</a>
+        </div>
+    </div>
+    </form>
+    
+</body>
+<script>
+$(document).ready(function(){
+  var nav = $('.menu').outerHeight() ;
+  var dH = $(document).outerHeight();
+  var menu = $(".menu li");
+
+  var main_wrap = $('.main_visual').height();
+  var sec01 = Math.round($('.section').eq(0).offset().top);
+  var sec02 = Math.round($('.section').eq(1).offset().top);
+  var sec03 = Math.round($('.section').eq(2).offset().top);
+  var sec04 = Math.round($('.section').eq(3).offset().top);
+
+//   var agent = navigator.userAgent.toLowerCase();
+
+//   if (agent.indexOf("msie") != -1) { 
+//     $('.txt_wrap').addClass('ie');
+//     console.log("111111");
+//     }else{
+//         $('.txt_wrap').removeClass('ie');
+//         console.log("222222");
+//     }
+
+  function navOn() {
+    var nowTop = $(window).scrollTop();
+    var innerHeight = $(this).innerHeight();
+    var scrollHeight = $(this).prop('scrollHeight');
+    $('.menu li').removeClass('on');
+    if ( nowTop >= 0 && nowTop + (nav *.7) < main_wrap) { // 메인비주얼
+      $('.menu li').removeClass('on');
+    } else if( nowTop + (nav *.7) >=  sec01 && nowTop + (nav *.7) < sec02) { // 혜택
+        $('.menu li').eq(0).addClass('on');
+    } else if( nowTop + (nav *.7) >=  sec02 && nowTop + (nav *.7) < sec03) { // 차종
+        $('.menu li').eq(1).addClass('on');
+    } else if( nowTop + (nav *.7) >=  sec03 && nowTop + (nav *.7) < sec04 - nav) { // 공지
+        $('.menu li').eq(2).addClass('on');
+    } else if( nowTop >= sec04 - nav &&  nowTop < sec04) {  // 지도
+        $('.menu li').eq(3).addClass('on');
+    } else if(  nowTop >= sec04 ) {   // 상담
+        $('.menu li').eq(4).addClass('on');
+    }
+    // 
+    if ($(window).width() <= 1024 ) {
+      if ( nowTop >= sec04 - nav &&  nowTop < sec04) { 
+        $('.menu li').eq(3).removeClass('on');
+        $('.menu li').removeClass('on');
+      } else if(nowTop + nav >= $('#map').offset().top - (nav *2)){
+        $('.menu li').eq(3).addClass('on');
+      }
+        //   
+        if (nowTop + innerHeight >= scrollHeight) {
+            $('.menu li').eq(3).addClass('on');
+        }
+    }
+    // 
+    if(nowTop > nav) {
+      $(".menu").addClass('fixed');
+    } else {
+      $(".menu").removeClass('fixed');
+    }
+    // quick-top
+    if(nowTop > (main_wrap / 3)) {
+      $(".quick-top").addClass('fix');
+    } else {
+      $(".quick-top").removeClass('fix');
+    }
+  };
+  
+  function clickOn(){
+    $(".menu li a").on('click',function(){
+      x = $(this).attr("class");
+      $('.menu li').removeClass('on');
+      $(this).parent().addClass('on');
+      $("html, body").stop().animate({ 
+          scrollTop :($("#"+x).offset().top - (nav / 2)) 
+        //   nowTop + (nav *.7) < sec02
+      } , 1000);
+      
+      if($(this).attr('class') === 'counsel'){
+        $('.menu li').removeClass('on');
+          $('.menu li').eq(4).addClass('on');
+        $("html, body").stop().animate({ 
+            scrollTop :$("#counsel").offset().top
+        } , 1000);    
+      }
+      if($(this).attr('class') === 'map'){
+        $(this).parent().addClass('on');
+        $("html, body").stop().animate({ 
+            scrollTop :$('#map').offset().top - nav
+        } , 1000);   
+        
+      }
+      /**/
+      if ($(window).width() <= 1024) {
+        if($(this).attr('class') === 'map'){
+          $(this).parent().addClass('on');
+          $("html, body").stop().animate({ 
+              scrollTop :$('#map').offset().top - nav
+          } , 1000);  
+        }
+      }
+    });
+  }
+
+  navOn();
+  clickOn();
+
+//  ------------------------------------------------ 고정
+       
+  $(window).scroll(function(){
+    navOn();
+  });
+
+  $(".quick-top").click(function() {
+      $('html, body').stop().animate({scrollTop:$('.wrap').offset().top}, 800);
+      $('nav ul li').removeClass('on');
+  });
+  $(".q_counsel, .counsel_btn").click(function(e) {
+      e.preventDefault();
+      $("html, body").stop().animate({ 
+          scrollTop :$("#counsel").offset().top
+      } , 1000);  
+      
+      if ($(window).width() <= 1024) {
+        $("html, body").stop().animate({ 
+            scrollTop :$("#counsel").offset().top - (nav / 2)
+        } , 1000);  
+      }  
+  });
+  $("input:radio[name=check]").on('click',function(){
+      var obj_value = $("input:radio[name='check']:checked").val();
+      if(obj_value == 'company'){
+      $('.trans input').attr('disabled', false);
+      $('.trans input').val('');
+      } else {
+      $('.trans input').attr('disabled', true);
+      }
+  });
+  $(".terms_list").each(function() {
+    $(this).find('.terms_header').click(function() {
+      if($(this).next().is(":hidden")) {
+        $(this).parent().siblings().find('.terms_header').find('p').removeClass('plus').addClass('minus');
+        $(this).find('p').removeClass('minus').addClass('plus');
+
+        $(this).parent().siblings().find('.terms_content').stop().slideUp();
+        $(this).next().stop().slideDown();
+      }
+    })
+  })
+  $(".radio_box input:radio[name=distinction]").on('click',function(){
+      var obj_value = $("input:radio[name='distinction']:checked").val();
+      if(obj_value == 'P'){
+          $('.distinction_name input').attr('disabled', true);
+          $('.distinction_name input').val('');
+          $('.dn_personal input').attr('disabled', false);
+      } else {
+          $('.dn_personal input').attr('disabled', false);
+          $('.dn_personal input').val('');
+          $('.distinction_name input').attr('disabled', false);
+      }
+  });
+});
+
+  // -- 공지사항
+  $(function(){ 
+      $('#notice .card').on('click',function() {
+          var cardTitle = $(this).find('.title').text();
+          var cardDate = $(this).find('.date').text();
+          var cardTxt = $(this).find($('p')).html();
+          popupOpen();
+          function popupOpen() {
+            // console.log(cardTitle + " / " + cardDate + " / " + cardTxt);
+            $('.modal-pop.modal-notice').fadeIn();
+            $('.dimd').fadeIn();
+            $('.cont_title').text(cardTitle);
+            $('.cont_date').text(cardDate);
+            $('.cont_txt').html(cardTxt);
+          }
+      });
+      $('.dimd').on('click',function(){
+          popupClose();
+      });
+
+      $('.modal-pop.modal-notice .modal-close').click(function(e) {
+          e.preventDefault();
+          popupClose();
+      });
+      
+      function popupClose() {
+          $('.modal-pop').fadeOut();
+          $('.dimd').fadeOut();
+      }
+  });
+  // -- slick
+  $('.slick_wrap').slick({
+      // autoplay:true,
+      autoplay:false,
+      slidesToShow:4,
+      slidesToScroll:1,
+      autoplaySpeed:2000,
+      responsive:[
+          {
+          breakpoint:1025,
+          settings:{
+              centerPadding:'27px',
+              slidesToShow:3
+              }
+          },
+          {
+          breakpoint:769,
+          settings:{
+              centerPadding:'27px',
+              slidesToShow:2
+              }
+          }
+      ]
+  });
+
+    $('.privacy_btn').on('click',function(){
+        var str = "https://www.skcarrental.com/rent/info/html/privacy_policyinfo.do";
+        var m_str = "https://m.skcarrental.com/mobile/info/html/privacy_policyinfo.do";
+        $(this).prop('href', str)
+        if ($(window).width() <= 1024) {
+        $(this).prop('href', m_str)
+        }
+    });
+
+    $(window).resize(function() {
+        if($(window).width() > 1024) {
+            var timer = null;
+            clearTimeout(timer);
+            timer = setTimeout(function(){
+                document.location.reload();
+            }, 200);
+        }else {
+            $(document).one( "load", function() {
+            });
+        }
+    });
+  // -- 지도 api
+  //  지도
+  new daum.roughmap.Lander({
+      "timestamp" :"1665737077543",
+      "key" :"2c2pk",
+      level:5
+  }).render();
+  function setZoomable(zoomable) {
+      // 마우스 휠로 지도 확대,축소 가능여부를 설정합니다
+      map.setZoomable(zoomable);    
+  }
+</script>
+</html>
+
