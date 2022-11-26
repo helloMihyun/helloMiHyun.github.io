@@ -1,0 +1,808 @@
+
+<!DOCTYPE html>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no, maximum-scale=1.0, minimum-scale=1.0">
+
+<meta name="title" content="" />
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<title>landing</title>
+
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css"/>
+<link rel="stylesheet" href="./resources/css2/promotion_common.css?v=1.6">
+<link rel="stylesheet" href="./resources/css2/style.css?v=1">
+
+<script charset="UTF-8" class="daum_roughmap_loader_script" src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.js"></script>
+<script src="./resources/js/common.js?v=1"></script>
+
+<script>
+
+$(document).on("keyup", "input[noAlphabet]", function() {$(this).val( $(this).val().replace(/[^ㄱ-힣]/gi,"") );}); //이름 입력 한글과 숫자만 허용
+
+function checkingName(){ 
+	var checkedValue = $("#userNm").val();
+	var checkedLength = checkedValue.length;
+	var char_ASCII = event.keyCode;
+	if(char_ASCII == 32){
+		if(checkedLength == 1){
+			$("#userNm").val("");
+		}else{
+			$("#userNm").val(checkedValue.trim());
+		}
+	}
+	
+	if(checkedLength != 0){
+		if(!noNumberKey()){
+			if(checkedLength == 1){
+				$("#userNm").val("");
+			}else{
+				$("#userNm").val(checkedValue.substring(0,checkedLength-1));
+			}
+		}else{
+			if(checkedLength > 10){
+				$("#userNm").val(checkedValue.substring(0,10));
+			}
+		}
+	}
+}
+
+function reqCounsel(){
+	var form = document.frm;
+	
+	//개인정보 수집 및 이용동의
+	if($('input:checkbox[id="term-check-2"]').is(":checked")){	
+		$("[name=agreeYn1]").val('Y');
+	}else{
+		$("[name=agreeYn1]").val('N');
+	}
+	
+	//마케팅 활용동의 여부 값 입력
+	if($('input:checkbox[id="select-terms4"]').is(":checked")){	
+		$("[name=agreeYn3]").val('Y');
+	}else{
+		$("[name=agreeYn3]").val('N');
+	}
+	
+	var obj_value = $("input:radio[name='distinction']:checked").val();
+	if(obj_value == ""){
+		alert("구분을 선택해주세요.");
+		return false;
+	}
+	
+	if(obj_value != "P"){
+		//개인사업자 혹은 법인
+		if($("#cmpyNm").val() == ""){
+			alert("상호명을 입력해 주세요.");
+			$("[name=cmpyNm]").focus();
+			return false;
+		}
+		if($("#cmpyNm").val().length >= 25){
+			alert("상호명은 최대 25자까지 입력 가능합니다.");
+			$("[name=cmpyNm]").focus();
+			return false;
+		}
+	}
+	
+	if($("[name=userNm]").val() == null || $("[name=userNm]").val() == ""){
+		alert("이름을 입력해주세요.");
+		$("[name=userNm]").focus();
+		return false;
+	}
+	
+	if($("[name=userNm]").val().length < 2){
+		alert("상담신청은, 한글 이름만 가능하며\n정상적인 이름이 아닌 경우, 상담신청이 제한 될 수 있습니다.");
+		return false;
+	}
+	
+	$("#custClsCd").val(obj_value);
+	
+	var checkedValue = $("#hpNo_1").val() + $("#hpNo_2").val()+ $("#hpNo_3").val();
+	
+	if(checkedValue.length > 11 || checkedValue.length < 10){ //10, 11자리만 허용
+		alert("연락처가 잘못되었습니다.");
+		return false;
+	}
+	
+	console.log("checkedValue :"+$("#hpNo_1").val() + $("#hpNo_2").val()+ $("#hpNo_3").val());
+	
+	$("#hpNo").val(checkedValue);
+	
+	//개인정보 수집 및 이용동의 동의체크
+	if($("[name=agreeYn1]").val() == "N"){
+		alert("개인정보 수집 및 이용에 동의해주세요.");
+		var offset = $('input:checkbox[id="term-check-2"]').offset();
+		$("html, body").animate({scrollTop:offset.top-200}, 10);
+		return false;
+	}
+
+	var tmp = jQuery("#frm").serializeArray();
+	var obj = {};
+	
+	$.each(tmp, function(idx, ele){
+		obj[ele.name] = ele.value;
+	});
+	
+	var data = JSON.stringify(obj);
+	
+	$.ajax({
+		url :'/rent/custcnte/counsel/longCounselReq.json',
+		type :'POST',
+		dataType :'json',
+		contentType :'application/json',
+		mimeType:'application/json',
+		processData :false,
+		data :data,
+		cache :false,
+		success :function(response, status, xhr) {
+			// Validation Message 초기화
+			if(response.resultCode == "0000") {
+
+				alert("상담신청이 완료되었습니다.\n주말공휴일 신청 시 다음 영업일 기준으로 24시간이내 연락드리겠습니다.");
+				
+				location.reload();
+			}
+			hideloading();
+		},
+		error :function(xhr, status, error) {
+			console.log(error);
+			console.log(arguments);
+			hideloading();
+		}
+	});
+}
+
+</script>
+</head>
+
+<body>
+    <form name="frm" id="frm" action="" method="POST">
+		<input type="hidden" name="userGroup" value="DKY" />
+		<input type="hidden" id="agreeYn1" name="agreeYn1" value="N" />
+		<input type="hidden" id="agreeYn3" name="agreeYn3" value="N" />
+		<input type="hidden" id="hpNo" name="hpNo" value = ""/>
+		<input type="hidden" id="custClsCd" name="custClsCd" value=""/>
+		<input type="hidden" name="counsel_mode" value="none" />
+    
+    <div class="wrap">
+        <nav>
+        <div class="inner_wrap flex">
+            <img src="https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/logo.png" alt="" class="logo">
+            <ul class="menu flex">
+              <li><a href="javascript:;" class="benefit" >메뉴1</a></li>
+              <li><a href="javascript:;" class="carlist">메뉴2</a></li>
+              <li><a href="javascript:;" class="notice">메뉴3</a></li>
+              <li><a href="javascript:;" class="map">메뉴4</a></li>
+              <li class="pc_v"><a href="javascript:;" class="counsel">메뉴5</a></li>
+            </ul>
+            <a href="tel:000-000-0000" class="tel"><img src="https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/tel.png?v=1" alt="대표전화" ></a>
+        </div>
+        </nav>
+        </nav>
+        <div class="main_visual">
+            <div class="pc_wrap pc_v">
+                <div class="inner_wrap">
+                    <div class="txt_wrap pc_v">
+                    <img src="https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/main_txt01.png" alt="fast is best">
+                    <img src="https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/main_txt02.png" alt="누구보다 빠르게 내 차 받는방법">
+                    <img src="https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/main_txt03.png" alt="sk렌터카">
+                    </div>
+                </div>
+            </div>
+            <div class="mobile_wrap mobile_v">
+                <img src="https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/main_visua_m.png" alt="" class="visual_img">
+                <div class="txt_wrap">
+                    <img src="https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/main_txt01_m.png" alt="">
+                    <img src="https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/main_txt02_m.png" alt="">
+                    <img src="https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/main_txt03_m.png" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="section" id="benefit">
+            <div class="inner_wrap">
+                <h3>SK렌터카 대구경북영업팀은<p>SK렌터카의 다양한 신차 구매 혜택을 소개합니다.</p></h3>
+                <div>
+                    <ul class="benefit_wrap">
+                    <li>
+                        <div class="img_box">
+                        <img src="https://plus.unsplash.com/premium_photo-1658506753641-d231d7588d29?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80" alt="">
+                        </div>
+                        <div class="txt_wrap">
+                        <strong>제목 01</strong>
+                        <ul>
+                            <li>lo</li>
+                            <li>집앞까지 찾아가는 딜리버리 서비스</li>
+                            <li>어플리케이션으로 똑똑한 차량 관리</li>
+                        </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="img_box">
+                        <img src="https://images.unsplash.com/photo-1664575198263-269a022d6e14?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="">
+                        </div>
+                        <div class="txt_wrap">
+                        <strong>제목 02</strong>
+                        <ul>
+                            <li>국내 최다 정비소 보유 <span class="m_br">스피드메이트 전국 700여개</span></li>
+                            <li>24시간 고객센터 운영 <span class="m_br">빠르고 간편한 사고처리</span></li>
+                            <li>신속한 대차 서비스 <span class="m_br">업계 최다 대차 지급 영업망 보유</span></li>
+                        </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="img_box">
+                        <img src="https://images.unsplash.com/photo-1633114128729-0a8dc13406b9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="">
+                        </div>
+                        <div class="txt_wrap">
+                        <strong>제목 03</strong>
+                        <ul>
+                            <li>취등록세 공채 취급수수료 부담 無</li>
+                            <li>자동차세 보험료 재산세 납입 無</li>
+                            <li>사고 보험 수가 인상 無</li>
+                            <li>경차, 승합차 부가세 無</li>
+                        </ul>
+                        </div>
+                    </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="section" id="carlist">
+            <div class="inner_wrap">
+                <h3>인기 차종 BEST 6<p>SK렌터카 대구경북팀에서 인기 차종을 안내 해드립니다.</p></h3>
+                <div class="slick_wrap">
+                    <div>
+                        <img src="https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/car01.png" alt="아이오닉 5">
+                        <div class="txt">
+                            <span class="car_n">아이오닉 5<img src="https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/deal.png" alt=""></span>
+                            <span>SUV / 전기차</span>
+                        </div>
+                    </div>
+                    <div>
+                        <img src="https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/car02.png" alt="아이오닉 6">
+                        <div class="txt">
+                            <span class="car_n">아이오닉 6<img src="https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/deal.png" alt=""></span>
+                            <span>중형 / 전기차</span>
+                        </div>
+                    </div>
+                    <div>
+                        <img src="https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/car03.png" alt="EV6">
+                        <div class="txt">
+                            <span class="car_n">EV6</span>
+                            <span>준중형 / 전기차</span>
+                        </div>
+                    </div>
+                    <div>
+                        <img src="https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/car04.png" alt="니로 EV">
+                        <div class="txt">
+                            <span class="car_n">니로 EV<img src="https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/deal.png" alt=""></span>
+                            <span>SUV / 전기차 </span>
+                        </div>
+                    </div>
+                    <div>
+                        <img src="https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/car06.png" alt="GV60">
+                        <div class="txt">
+                            <span class="car_n">GV60</span>
+                            <span>중형 / 전기차 </span>
+                        </div>
+                    </div>
+                    <div>
+                        <img src="https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/car05.png" alt="폴스타2">
+                        <div class="txt">
+                            <span class="car_n">폴스타2<img src="https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/deal.png" alt=""></span>
+                            <span>SUV / 전기차 </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section" id="notice">
+            <div class="inner_wrap">
+                <h3>공지사항<p>SK렌터카 대구경북팀의 소식을 빠르게 만나보세요.</p></h3>
+                <div class="notice_wrap">
+                    <div class="card">
+                        <strong class="title">대구 국제 미래 모빌리티 엑스포 참가</strong>
+                        <p>
+                        안녕하세요! <br>
+                        SK렌터카 대구경북영업팀입니다.  <br> <br>
+                        
+                        10월27일부터 3일간 대구엑스코에서 개최 되는 “대구국제미래자동차엑스포” 에 참가하게 되었습니다. <br>
+                        두 번 다시 없을 혜택이 많이 준비되어 있으니 많은 관심과 방문 부탁드립니다!
+                        <br> <br>
+                        감사합니다.
+                        </p>
+                        
+                        <span class="date">2022.10.20</span>
+                    </div>
+                    <div class="card">
+                        <strong class="title">SK렌터카 대구경북영업팀 홈페이지 오픈</strong>
+                        <p>
+                        안녕하세요.  <br>
+                        SK렌터카 대구경북영업팀의 홈페이지가 새단장하였습니다.  <br>
+                        앞으로 많은 관심 부탁드립니다! <br> <br>
+                        감사합니다.
+                        </p>
+                        <span class="date">2022.10.20</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex section" id="info">
+            <div class="form_box" id="counsel">
+                <div>
+                    <h3>온라인 문의</h3>
+                    <div class="form_wrap">
+                        <div class="radio_box">
+                            <span class="sel_title">구분</span>
+                            <span>
+                                <input type="radio" name="distinction" id="personal" value="P" checked>
+                                <label for="personal">개인</label>
+                            </span>
+                            <span>
+                                <input type="radio" name="distinction" id="business" value="B">
+                                <label for="business">개인사업자</label>
+                            </span>
+                            <span>
+                                <input type="radio" name="distinction" id="corporation" value="C">
+                                <label for="corporation">법인</label>
+                            </span>
+                        </div>
+                        <div class="name_box">
+                            <span class="compulsory distinction_name">
+                                <input type="text" id = "cmpyNm" name="cmpyNm" placeholder="상호명" maxlength="" value="" disabled/>
+                            </span>
+                            <input type="text" id="userNm" name="userNm" placeholder="이름 입력" maxlength="10" value="" onkeyup="javascript:checkingName()">
+                        </div>
+                        <div class="phone_num">
+                            <select id="hpNo_1" name="hpNo_1">
+                            <option value="010">010</option>
+                            <option value="070">070</option>
+                            <option value="011">011</option>
+                            <option value="016">016</option>
+                            <option value="017">017</option>
+                            <option value="018">018</option>
+                            <option value="019">019</option>
+                            </select>
+                            -
+                            <input id="hpNo_2" name="hpNo_2" type="text" maxlength="4" onkeypress="return fn_press(event, 'numbers');" onkeydown="fn_press_han(this);">
+                            -
+                            <input id="hpNo_3" name="hpNo_3" type="text" maxlength="4" onkeypress="return fn_press(event, 'numbers');" onkeydown="fn_press_han(this);">
+                        </div>
+                        <div class="">
+                            <input class="car_input" type="text" id="carNm" name="carNm" placeholder="관심차종">
+                        </div>
+                        <div class="">
+                            <textarea name="contents" id="contents" placeholder="문의사항"></textarea>
+                        </div>
+                        <div class="terms_list">
+                            <div class="terms_header subject1">
+                                <h4>개인정보 수집 및 이용동의
+                                <strong class="color_font">(필수)</strong>
+                                <p class="plus"></p><legend></legend>
+                                </h4>
+                                <span class="checkbox v2">
+                                <input type="checkbox" id="term-check-2">
+                                <label class="label" for="term-check-2"></label>
+                                </span>
+                            </div>
+                            <div class="terms_content notice1" style="display:block;">
+                            <ul>
+                                <li>
+                                <strong>수집항목(필수)</strong>
+                                이름, 휴대폰번호
+                                </li>
+                                <li>
+                                <strong>이용목적</strong>
+                                차량 대여상품 상담 및 판매
+                                </li>
+                                <li>
+                                <strong>보유 및 이용기간</strong>
+                                최종 상담 진행일로부터 1년 또는 동의 철회시까지
+                                </li>
+                            </ul>
+                            </div> 
+                        </div>
+                        <div class="terms_list v3">
+                            <div class="terms_header subject2">
+                            <h4>마케팅 활용 동의<strong>(선택)</strong> <p class="minus"></p></h4>
+                            <span class="checkbox v2">
+                                <input type="checkbox" id="select-terms4">
+                                <label class="label" for="select-terms4"></label>
+                            </span>
+                            </div>
+                            <div class="terms_content notice2" style="">
+                            <ul>
+                                <li>
+                                <strong>활용항목</strong>
+                                휴대폰번호
+                                </li>
+                                <li>
+                                <strong>이용목적</strong>
+                                <ul class="small_list">
+                                    <li>프로모션 안내</li>
+                                    <li>신제품 및 신규서비스 안내</li>
+                                    <li>광고성 정보 전송</li>
+                                </ul>
+                                </li>
+                                <li>
+                                <strong>보유 및 이용기간</strong>
+                                최종 상담 진행일로부터 1년 또는 동의 철회시까지
+                                </li>
+                            </ul>
+                            </div>
+                        </div>
+                        <div class="inquire_btn_wrap">
+                            <a href="javascript:;" class="inquire_btn" onclick="reqCounsel()">등록하기</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="" id="map">
+                <div class="map_wrapper">
+                    <div id="daumRoughmapContainer1665737077543" class="root_daum_roughmap root_daum_roughmap_landing" style="width:100%;"></div>
+                </div>
+                <div class="information">
+                    <div>
+                        <h2>SK렌터카 대구경북팀</h2>
+                        <div class="flex">
+                            <div class="location">
+                                <div>
+                                    <p class="tel_num">상담하기 대표전화<a href="tel:053-743-9119">053-743-9119</a></p>
+                                    <p class="point">대구광역시 북구 엑스코로 10 서관,<br>414호 (대구경북영업팀)</p>
+                                </div>
+                            </div>
+                            <div class="sns">
+                                <a href="http://pf.kakao.com/_axaPxjs" class="sns_kakaoch" target="_blank">카카오채널</a>
+                                <a href="https://www.instagram.com/SK_renbujang" class="sns_insta" target="_blank">인스타그램</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="inner_wrap">
+                <div>
+                <img src="https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/foot_ogo.png" alt="SK렌터카 대구경북">
+                <p>주소 : 서울시 마포구</p>
+                <p>대표 : 대표님 │ TEL : 02-000-0000 <span class="pc_v_s"> │ </span><br class="mobile_v">이메일 : gmail@gamil.com │ 사업자번호 : 000-00-000</p>
+                <p>Copyright ⓒ 카피라이트 All Rights Reserved.</p>
+                </div>
+                <!-- <span onclick='javascript:popupPrivacy();' class="privacy_btn">개인정보 처리방침</span> -->
+                <a href="javascript;" class="privacy_btn" target="_blank">개인정보 처리방침</a>
+            </div>
+        </div>
+        <div class="mobile_v fix_btn_wrap">
+            <a href="javascript:;" class="counsel_btn">상담신청</a>
+            <a href="tel:053-743-9119"><i class="icon tel"></i>전화상담</a>
+        </div>
+    
+        <!-- modal-pop 공지사항 자세히보기 //start -->
+        <div id="modalNotice" class="modal-pop modal-notice">
+        <!-- style="display:block" -->
+            <div class="modal-box">
+            <div class="modal-header">
+                <a href="#" class="modal-close" onclick = "popupClose()">레이어 닫기</a>
+                <h4 class="modal_title">공지사항</h4>
+            </div>
+            <article>
+                <div class="cont_header">
+                <h5 class="cont_title"></h5>
+                <p class="cont_date"></p>
+                </div>
+                <div class="cont_txt">
+                    <div>
+                        <p></p>
+                    </div>
+                </div>
+
+            </article>
+            </div>
+        </div>
+        <div class="dimd"></div>
+        <!-- modal-pop//end -->	
+        
+        <!-- modal-pop 신청완료 //start -->
+        <div id="modal-counsel-end" class="modal-pop modal-comp">
+            <div class="modal-box">
+                <div class="modal-header">
+                    <a href="javascript:;" class="modal-close" onclick="popupClose()">레이어 닫기</a>
+                    <h3><img src="https://image.speedmate.com/speedimg/rentcar/real/newevent/221018/logo.png" alt=""></h3>
+                </div>
+                <article>
+                    <div>
+                        <p><img src="https://www.skcarrental.com/resources/img/popup/counsel_msg.png" alt="신청완료 전문 상담원이 빠른 연락 드리겠습니다."></p>
+                        <div class="btn_box">
+                                <button onclick="popupOpenSuccess()" type="button" class="btn">닫기</button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+        <!-- <div class="dimd"></div> -->
+        <!-- modal-pop//end -->	
+        <div class="quick_btn_wrap">
+            <a href="javascript:;" class="q_counsel">빠른상담</a>
+            <a href="javascript:;" class="btn-top quick-top">TOP</a>
+        </div>
+    </div>
+    </form>
+    
+</body>
+<script>
+$(document).ready(function(){
+  var nav = $('.menu').outerHeight() ;
+  var dH = $(document).outerHeight();
+  var menu = $(".menu li");
+
+  var main_wrap = $('.main_visual').height();
+  var sec01 = Math.round($('.section').eq(0).offset().top);
+  var sec02 = Math.round($('.section').eq(1).offset().top);
+  var sec03 = Math.round($('.section').eq(2).offset().top);
+  var sec04 = Math.round($('.section').eq(3).offset().top);
+
+//   var agent = navigator.userAgent.toLowerCase();
+
+//   if (agent.indexOf("msie") != -1) { 
+//     $('.txt_wrap').addClass('ie');
+//     console.log("111111");
+//     }else{
+//         $('.txt_wrap').removeClass('ie');
+//         console.log("222222");
+//     }
+
+  function navOn() {
+    var nowTop = $(window).scrollTop();
+    var innerHeight = $(this).innerHeight();
+    var scrollHeight = $(this).prop('scrollHeight');
+    $('.menu li').removeClass('on');
+    if ( nowTop >= 0 && nowTop + (nav *.7) < main_wrap) { // 메인비주얼
+      $('.menu li').removeClass('on');
+    } else if( nowTop + (nav *.7) >=  sec01 && nowTop + (nav *.7) < sec02) { // 혜택
+        $('.menu li').eq(0).addClass('on');
+    } else if( nowTop + (nav *.7) >=  sec02 && nowTop + (nav *.7) < sec03) { // 차종
+        $('.menu li').eq(1).addClass('on');
+    } else if( nowTop + (nav *.7) >=  sec03 && nowTop + (nav *.7) < sec04 - nav) { // 공지
+        $('.menu li').eq(2).addClass('on');
+    } else if( nowTop >= sec04 - nav &&  nowTop < sec04) {  // 지도
+        $('.menu li').eq(3).addClass('on');
+    } else if(  nowTop >= sec04 ) {   // 상담
+        $('.menu li').eq(4).addClass('on');
+    }
+    // 
+    if ($(window).width() <= 1024 ) {
+      if ( nowTop >= sec04 - nav &&  nowTop < sec04) { 
+        $('.menu li').eq(3).removeClass('on');
+        $('.menu li').removeClass('on');
+      } else if(nowTop + nav >= $('#map').offset().top - (nav *2)){
+        $('.menu li').eq(3).addClass('on');
+      }
+        //   
+        if (nowTop + innerHeight >= scrollHeight) {
+            $('.menu li').eq(3).addClass('on');
+        }
+    }
+    // 
+    if(nowTop > nav) {
+      $(".menu").addClass('fixed');
+    } else {
+      $(".menu").removeClass('fixed');
+    }
+    // quick-top
+    if(nowTop > (main_wrap / 3)) {
+      $(".quick-top").addClass('fix');
+    } else {
+      $(".quick-top").removeClass('fix');
+    }
+  };
+  
+  function clickOn(){
+    $(".menu li a").on('click',function(){
+      x = $(this).attr("class");
+      $('.menu li').removeClass('on');
+      $(this).parent().addClass('on');
+      $("html, body").stop().animate({ 
+          scrollTop :($("#"+x).offset().top - (nav / 2)) 
+        //   nowTop + (nav *.7) < sec02
+      } , 1000);
+      
+      if($(this).attr('class') === 'counsel'){
+        $('.menu li').removeClass('on');
+          $('.menu li').eq(4).addClass('on');
+        $("html, body").stop().animate({ 
+            scrollTop :$("#counsel").offset().top
+        } , 1000);    
+      }
+      if($(this).attr('class') === 'map'){
+        $(this).parent().addClass('on');
+        $("html, body").stop().animate({ 
+            scrollTop :$('#map').offset().top - nav
+        } , 1000);   
+        
+      }
+      /**/
+      if ($(window).width() <= 1024) {
+        if($(this).attr('class') === 'map'){
+          $(this).parent().addClass('on');
+          $("html, body").stop().animate({ 
+              scrollTop :$('#map').offset().top - nav
+          } , 1000);  
+        }
+      }
+    });
+  }
+
+  navOn();
+  clickOn();
+
+//  ------------------------------------------------ 고정
+       
+  $(window).scroll(function(){
+    navOn();
+  });
+
+  $(".quick-top").click(function() {
+      $('html, body').stop().animate({scrollTop:$('.wrap').offset().top}, 800);
+      $('nav ul li').removeClass('on');
+  });
+  $(".q_counsel, .counsel_btn").click(function(e) {
+      e.preventDefault();
+      $("html, body").stop().animate({ 
+          scrollTop :$("#counsel").offset().top
+      } , 1000);  
+      
+      if ($(window).width() <= 1024) {
+        $("html, body").stop().animate({ 
+            scrollTop :$("#counsel").offset().top - (nav / 2)
+        } , 1000);  
+      }  
+  });
+  $("input:radio[name=check]").on('click',function(){
+      var obj_value = $("input:radio[name='check']:checked").val();
+      if(obj_value == 'company'){
+      $('.trans input').attr('disabled', false);
+      $('.trans input').val('');
+      } else {
+      $('.trans input').attr('disabled', true);
+      }
+  });
+  $(".terms_list").each(function() {
+    $(this).find('.terms_header').click(function() {
+      if($(this).next().is(":hidden")) {
+        $(this).parent().siblings().find('.terms_header').find('p').removeClass('plus').addClass('minus');
+        $(this).find('p').removeClass('minus').addClass('plus');
+
+        $(this).parent().siblings().find('.terms_content').stop().slideUp();
+        $(this).next().stop().slideDown();
+      }
+    })
+  })
+  $(".radio_box input:radio[name=distinction]").on('click',function(){
+      var obj_value = $("input:radio[name='distinction']:checked").val();
+      if(obj_value == 'P'){
+          $('.distinction_name input').attr('disabled', true);
+          $('.distinction_name input').val('');
+          $('.dn_personal input').attr('disabled', false);
+      } else {
+          $('.dn_personal input').attr('disabled', false);
+          $('.dn_personal input').val('');
+          $('.distinction_name input').attr('disabled', false);
+      }
+  });
+});
+
+  // -- 공지사항
+  $(function(){ 
+      $('#notice .card').on('click',function() {
+          var cardTitle = $(this).find('.title').text();
+          var cardDate = $(this).find('.date').text();
+          var cardTxt = $(this).find($('p')).html();
+          popupOpen();
+          function popupOpen() {
+            // console.log(cardTitle + " / " + cardDate + " / " + cardTxt);
+            $('.modal-pop.modal-notice').fadeIn();
+            $('.dimd').fadeIn();
+            $('.cont_title').text(cardTitle);
+            $('.cont_date').text(cardDate);
+            $('.cont_txt').html(cardTxt);
+          }
+      });
+      $('.dimd').on('click',function(){
+          popupClose();
+      });
+
+      $('.modal-pop.modal-notice .modal-close').click(function(e) {
+          e.preventDefault();
+          popupClose();
+      });
+      
+      function popupClose() {
+          $('.modal-pop').fadeOut();
+          $('.dimd').fadeOut();
+      }
+  });
+  // -- slick
+  $('.slick_wrap').slick({
+      // autoplay:true,
+      autoplay:false,
+      slidesToShow:4,
+      slidesToScroll:1,
+      autoplaySpeed:2000,
+      responsive:[
+          {
+          breakpoint:1025,
+          settings:{
+              centerPadding:'27px',
+              slidesToShow:3
+              }
+          },
+          {
+          breakpoint:769,
+          settings:{
+              centerPadding:'27px',
+              slidesToShow:2
+              }
+          }
+      ]
+  });
+
+    $('.privacy_btn').on('click',function(){
+        var str = "https://www.skcarrental.com/rent/info/html/privacy_policyinfo.do";
+        var m_str = "https://m.skcarrental.com/mobile/info/html/privacy_policyinfo.do";
+        $(this).prop('href', str)
+        if ($(window).width() <= 1024) {
+        $(this).prop('href', m_str)
+        }
+    });
+
+    $(window).resize(function() {
+        if($(window).width() > 1024) {
+            var timer = null;
+            clearTimeout(timer);
+            timer = setTimeout(function(){
+                document.location.reload();
+            }, 200);
+        }else {
+            $(document).one( "load", function() {
+            });
+        }
+    });
+  // -- 지도 api
+  //  지도
+  new daum.roughmap.Lander({
+      "timestamp" :"1668768492618",
+      "key" :"2cn5i",
+      level:5
+  }).render();
+  function setZoomable(zoomable) {
+      // 마우스 휠로 지도 확대,축소 가능여부를 설정합니다
+      map.setZoomable(zoomable);    
+  }
+
+  <!-- * 카카오맵 - 지도퍼가기 -->
+<!-- 1. 지도 노드 -->
+<div id="daumRoughmapContainer1668768492618" class="root_daum_roughmap root_daum_roughmap_landing"></div>
+
+<!--
+	2. 설치 스크립트
+	* 지도 퍼가기 서비스를 2개 이상 넣을 경우, 설치 스크립트는 하나만 삽입합니다.
+-->
+<script charset="UTF-8" class="daum_roughmap_loader_script" src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
+
+<!-- 3. 실행 스크립트 -->
+<script charset="UTF-8">
+	new daum.roughmap.Lander({
+		"timestamp" : "1668768492618",
+		"key" : "2cn5i",
+		"mapWidth" : "640",
+		"mapHeight" : "360"
+	}).render();
+</script>
+</script>
+</html>
+
