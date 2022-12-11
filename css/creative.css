@@ -370,9 +370,12 @@ section#contact{
   margin-top:1.5rem;
 }
 .link_list > a {
-  display:block;
+  /* display:block; */
   align-content: center;
   font-size: 1.5rem;
+  text-decoration:none;
+  color:#fff;
+  
 }
 .link_list > a:before {
     content: "";
