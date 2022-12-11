@@ -375,7 +375,9 @@ section#contact{
   font-size: 1.5rem;
   text-decoration:none;
   color:#fff;
-  
+  width: 100%;
+  height: 100px;
+  text-align: center;
 }
 .link_list > a:before {
     content: "";
