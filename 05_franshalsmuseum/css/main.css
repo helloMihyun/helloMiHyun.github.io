@@ -621,7 +621,7 @@ footer form .news_name, footer form .news{
     border:none;
     border-bottom:2px solid #000;
     box-sizing:border-box;
-    background-color:inherit;
+    background-color:rgba(0,0,0,0);
     font-family: 'Raleway', sans-serif;
 	background: transparent;
     font-size: 1.4rem;
