@@ -552,12 +552,16 @@ div.section_new .section_card_wrap .card_wrapper .card_info_wrap{
 }
 .instagram_card_likes{
     line-height:1;
-
+}
+.instagram_card_likes span {
+    display:flex;
+    justify-content:center;
+    align-items:center;
 }
 .instagram_card_likes i{
     font-size:1.3rem;
-    vertical-align:top;   
-    margin-top:0.35rem;    
+/*     vertical-align: top;
+    margin-top:0.35rem; */
 }
 .card_excerpt{
     margin-top:1.5vh;
