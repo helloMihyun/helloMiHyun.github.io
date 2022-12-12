@@ -623,6 +623,9 @@ footer form .news_name, footer form .news{
     box-sizing:border-box;
     background-color:inherit;
     font-family: 'Raleway', sans-serif;
+	background: transparent;
+    font-size: 1.4rem;
+    font-weight: 600;
 }
 footer form .news_name, footer form input.submit_btn{
     border:2px solid #231f20;
