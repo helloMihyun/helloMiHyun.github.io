@@ -1,0 +1,390 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="keywords" content="">
+    <title>월곡문화지도</title>
+    <link rel="stylesheet" href="/static/css/pc.css?1670889430">
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <script src="/static/js/jquery-1.12.4.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script src="/static/js/jquery.cookie.js"></script>
+    <script src="/static/js/_common.js"></script>
+    <script src="/static/js/common.js"></script>
+</head>
+<body> <!--  style="height:1500px;" -->
+    <div id="skipnavi">
+        <a href="#gnb" class="shortcut_g">네비게이션 바로가기</a>
+        <a href="#cMain" class="shortcut_g">본문영역 바로가기</a>
+    </div>
+    <div class="web">
+                <header>
+            <nav class="gnb_menu_wrap" id="gnb">
+                <div class="gnb_menu">
+					<div class="member_wrap">
+                        						<a href="/member/login.php">로그인</a>
+                        <a href="/member/join.php?prev=main">회원가입</a>
+                        					</div>
+                    <a href="javascript:;" class="close_menu_btn"><img src="/static/images/ico_close_btn.png" alt="메뉴 닫기"></a>
+                    <h2>카테고리</h2>
+                    <ul class="nav_list">
+                        <li><a href="/?cate=1">한식</a></li><li><a href="/?cate=2">아시안·양식</a></li><li><a href="/?cate=3">일식·중식</a></li><li><a href="/?cate=6">분식·간단식</a></li><li><a href="/?cate=5">카페·디저트</a></li><li><a href="/?cate=4">문화·생활</a></li><li><a href="/?cate=7">야식</a></li>                    </ul>
+                    <a href="/notice/list.php" class="btn btn_white btn_large notice_btn">공지사항</a>
+                    <!-- <div class="sns_btn_wrap">
+                        <a href="javascript:;"><img src="/static/images/icon_sns_i.png" alt="인스타그램 바로가기"></a>
+                        <a href="javascript:;"><img src="/static/images/icon_sns_f.png" alt="페이스북 바로가기"></a>
+                    </div> -->
+                </div>
+            </nav>
+        </header>
+        
+        <aside class="clear  quick_wrap">
+			<div class="fl_l member_wrap">
+                                <a href="/member/login.php">로그인</a>
+                			</div>
+            <a href="javascript:;" id="openGnbBtn" class="fl_r"><img src="/static/images/ico_open_btn.png" alt="메뉴보기"></a>
+            <div class="fix_wrap">
+                <!-- <div class="sns_wrap">
+                    <a href="javascript:;" class="btn_round sns_btn_i">인스타그램 바로가기</a>
+                    <a href="javascript:;" class="btn_round sns_btn_f">페이스북 바로가기</a>
+                </div> -->
+                <a href="http://dongdukmap.com/" target="_blank" class="btn_round map_btn">
+					<!-- <img src="/static/images/popup_map.png" alt="월곡문화지도보기"> -->
+					<span>2019<br>월곡 문화지도<br>보기</span>
+				</a>
+            </div>
+        </aside>
+        <style>
+.category_con .col .frame_g img {max-width:54%;}
+#popUp, .map_pop {z-index:1;}
+#sch_reset {padding: 13px 15px 11px;
+    border: 1px solid #dbdbdb;
+    vertical-align: top;}
+</style>
+<div id="cMain" class="main">
+    <div class="main_visual" style="background-image:url('../static/images/5fc753d713e98_1606898647.jpg');background-size:auto 100%;">
+        <!-- <div>
+            <div class="img_wrap"><img src="/uploads/main_visual/20201202/5fc753d713e98_1606898647.jpg" alt="월곡문화지도" style="height:100%;object-fit:cover;"></div>
+        </div>              -->
+    </div>
+    
+    <div class="campus_list_wrap">
+        <div class="inner_wrap row_group col_3">
+            <a href="javascript:;" class="col" id="hyehwa">공연예술센터 [ 혜화동 ]</a>
+            <a href="javascript:;" class="col" id="cheongdam">디자인연구센터 [ 청담동 ]</a>
+            <a href="javascript:;" class="col" id="insaart">동덕아트갤러리 [ 인사동 ]</a>
+        </div>
+    </div>
+
+    <section class="category">
+        <div class="inner_wrap">
+            <h3 class="main_title">카테고리</h3>
+            <div class="category_wrap">
+                <button class="on">전체</button>
+                <button data-cate="1">한식</button><button data-cate="2">아시안·양식</button><button data-cate="3">일식·중식</button><button data-cate="6">분식·간단식</button><button data-cate="5">카페·디저트</button><button data-cate="4">문화·생활</button><button data-cate="7">야식</button>            </div>
+            <div class="category_con">
+                <div class="sch_form">
+                    <form method="get">
+                        <input type="hidden" name="cate" value="">
+                        <label for="">
+                            <input type="text" name="keyword" placeholder="검색어를 입력해 주세요." value="">
+                            <button type="submit"><img src="/static/images/ico_sch.png" alt="검색하기"></button>
+                        </label>
+                        <a href="/?cate=" id="sch_reset"><img src="/static/images/ico_reset.png" alt="초기화"></a>
+                    </form>
+                </div>
+                <div class="inner_wrap row_group">
+                                        <div class="col">
+						<button type="button" class="like_btn" data-idx="110">
+							<i class="ico_comm icon_like">찜하기</i>
+						</button>
+                        <a href="./view.html">
+                            <div class="frame_g">
+								<img src="/uploads/restaurant/20210727/thumb/60ff78eed57da_1627355374.jpg" alt="동덕 아트컬처 캠퍼스타운 사업단">							</div>
+                            <div class="store_info">
+                                <strong>동덕 아트컬처 캠퍼스타운 사업단</strong>
+                                <span>&#039;청년의 힘으로 월곡에 희망을 심다&#039;  동덕 아트컬처 캠퍼스타운 사업단</span>
+                            </div>
+                        </a>
+                    </div>
+                                        <div class="col">
+						<button type="button" class="like_btn" data-idx="108">
+							<i class="ico_comm icon_like">찜하기</i>
+						</button>
+                        <a href="./view.html">
+                            <div class="frame_g">
+								<img src="/uploads/restaurant/20210711/thumb/60e9ddf18dba9_1625939441.png" alt="송송식탁">							</div>
+                            <div class="store_info">
+                                <strong>송송식탁</strong>
+                                <span></span>
+                            </div>
+                        </a>
+                    </div>
+                                        <div class="col">
+						<button type="button" class="like_btn" data-idx="107">
+							<i class="ico_comm icon_like">찜하기</i>
+						</button>
+                        <a href="./view.html">
+                            <div class="frame_g">
+								<img src="/uploads/restaurant/20210711/thumb/60e9dce0e6507_1625939168.png" alt="공복">							</div>
+                            <div class="store_info">
+                                <strong>공복</strong>
+                                <span>노릇노릇 구워지는 고기가 맛있는 &quot;공복식당&quot;</span>
+                            </div>
+                        </a>
+                    </div>
+                                        <div class="col">
+						<button type="button" class="like_btn" data-idx="106">
+							<i class="ico_comm icon_like">찜하기</i>
+						</button>
+                        <a href="./view.html">
+                            <div class="frame_g">
+								<img src="/uploads/restaurant/20210711/thumb/60e9dc42871e1_1625939010.png" alt="떡볶이심리학">							</div>
+                            <div class="store_info">
+                                <strong>떡볶이심리학</strong>
+                                <span>떡볶이심리학 &hearts; &quot;떡볶이에  대한 당신의 마음을 읽다&quot;</span>
+                            </div>
+                        </a>
+                    </div>
+                                        <div class="col">
+						<button type="button" class="like_btn" data-idx="105">
+							<i class="ico_comm icon_like">찜하기</i>
+						</button>
+                        <a href="./view.html">
+                            <div class="frame_g">
+								<img src="/uploads/restaurant/20210710/thumb/60e954d32b4c2_1625904339.png" alt="대한부동산">							</div>
+                            <div class="store_info">
+                                <strong>대한부동산</strong>
+                                <span>친절하게 원하는 매물을 찾아주는 &quot;대한부동산&quot;</span>
+                            </div>
+                        </a>
+                    </div>
+                                        <div class="col">
+						<button type="button" class="like_btn" data-idx="104">
+							<i class="ico_comm icon_like">찜하기</i>
+						</button>
+                        <a href="./view.html">
+                            <div class="frame_g">
+								<img src="/uploads/restaurant/20210710/thumb/60e952c1824a3_1625903809.png" alt="동덕여자대학교 부설 평생교육원">							</div>
+                            <div class="store_info">
+                                <strong>동덕여자대학교 부설 평생교육원</strong>
+                                <span>배움에는 끝이 없다! 공부로 삶의 목표를 달성하는 &quot;동덕여대 부설 평생교육원&quot;</span>
+                            </div>
+                        </a>
+                    </div>
+                                    </div>
+                <div class="btn_wrap">
+                                        <a href="javascript:list_ajax(1);" class="btn btn_large btn_white more_category_btn">더보기<i class="ico_comm icon_more_arrow"></i></a>
+                                    </div>
+            </div>
+        </div>
+    </section>
+</div>
+<div id="popUp">
+    <div class="inner_wrap"><a href="javascript:;" id="popupFrame_closeBtn"><img src="/static/images/ico_close_btn.png" alt="팝업닫기"></a></div>
+</div>
+<div class="map_pop">
+    <div class="inner_wrap">
+        <a href="javascript:;" class="close_map_pop"><img src="/static/images/ico_close_btn.png" alt="팝업닫기"></a>
+        <div class="frame_g">
+            <img src="/static/images/map_pop.png" alt="월곡문화지도" id="zoomImg">
+        </div>
+        <div class="zoom_btn_wrap">
+            <a href="javascript:;" id="zoomIn"><img src="/static/images/ico_zoomin.png" alt="지도확대"></a>
+            <a href="javascript:;" id="zoomOut"><img src="/static/images/ico_zoomout.png" alt="지도축소"></a>
+            <a href="javascript:;" id="zoomRefresh"><img src="/static/images/ico_zoomrefresh.png" alt="지도초기화"></a>
+        </div>
+    </div>
+</div>
+
+<script>
+$(function() {
+    $('.campus_list_wrap .row_group a').click(function(e) {
+        e.preventDefault();
+        var href = $(this).attr('id');
+        $('#popUp').show();
+        // $('#popUp .inner_wrap').append('<iframe src="/campus/' + href +  '.php" title="' + href + '"></iframe>');
+        $('#popUp .inner_wrap').append('<iframe src="./campus/' + href +  '.html" title="' + href + '"></iframe>');
+        $('body').css('overflow','hidden');
+    });
+
+    $('#popupFrame_closeBtn').on('click',function(e) {
+        e.preventDefault();
+        $('#popUp .inner_wrap iframe').detach();
+        $('#popUp').hide();
+        $('body').css('overflow','auto');
+    });
+
+    $('.category_wrap button').on('click', function(e) {
+        e.preventDefault();
+        $('.category_wrap button').removeClass('on')
+        $(this).addClass('on')
+        // var cate = $(this).data('cate');
+        // if (!cate) cate = '';
+        //location.replace('/?cate=' + cate + '&keyword=');
+        // location.replace('/?cate=' + cate);
+    });
+
+    if ($.cookie("current_scroll") && $.cookie("current_count")) {
+        list_ajax(2);
+        $("html, body").animate({scrollTop :  $.cookie("current_scroll")}, "slow");
+
+        $.removeCookie("current_scroll");
+        $.removeCookie("current_count");
+    } else {
+            }
+
+    $(document).on("click", ".category_con .col a", function(e) {
+        e.preventDefault();
+
+        var url = $(this).attr("href");
+
+        if (url) {
+            if ($(".category_con .col").length > 6) {
+                $.cookie("current_scroll", Math.max(document.body.scrollTop, document.documentElement.scrollTop));
+                $.cookie("current_count",  $(".category_con .col").length);
+            }
+            location.href = url + "&";
+        }
+    });
+
+    $(document).on("click", ".like_btn", function(e) {
+        e.preventDefault();
+
+        var idx = $(this).data("idx");
+
+        if (idx > 0) {
+                        if (confirm("로그인 후 이용 가능합니다.\n로그인 페이지로 이동하시겠습니까?")) {
+                location.href = "/member/login.php";
+            }
+                    }
+    });
+/*
+    $('.map_pop').hide();
+    $('.map_btn').on('click',function(){
+        $('.map_pop').fadeIn();
+    });
+    $('.close_map_pop').on('click',function(){
+        $('.map_pop').fadeOut();
+    });
+    zoomBtn();
+*/   
+    dragElement(document.getElementById('zoomImg'));
+    
+});
+
+function list_ajax(type) {
+    var from_record = page_rows = '';
+
+    if (!type) type = 1;
+
+    if (type == 1 && $(".category_con .col").length < 97) {
+        from_record = $(".category_con .col").length;
+        page_rows = 3;
+    } else if (type == 2) {
+        from_record = $(".category_con .col").length;
+        page_rows = $.cookie("current_count") - $(".category_con .col").length;
+    } else return false;
+    
+    var data = {
+        cmd : "list",
+        from_record : from_record,
+        page_rows : page_rows,
+        cate : "",
+        keyword : ""
+    };
+
+    $.post("./restaurant/ajax.php", data, function(r) {
+        if (r.status == "S") {
+            $(".category_con .inner_wrap").append(r.html);
+            if ($(".category_con .col").length >= 97) $(".more_category_btn").remove();
+            
+            if (type == 1) {
+                $(".category_con .inner_wrap").find(".col:nth-last-child(-n + 3)").slideDown();
+            } else {
+                $(".category_con .inner_wrap").find(".col").css("display", "block");
+            }
+        } else {
+            alert(r.msg);
+        }
+    });
+}
+   
+function zoomBtn(){
+    var scale = 1;
+    //var default = 0;
+    // 초기
+    if(scale > 1) {
+        changeScale()
+    }
+
+    function changeScale() {
+        $('.map_pop .frame_g img').css('transform','scale(' + scale + ')').css('transform-origin','0 0');
+    }            
+    function stopScale() {
+        $('.map_pop .frame_g img').css('transform','none').css('transform-origin','');
+    }
+
+    $("#zoomIn").click(function() {
+        scale += 0.05;
+        changeScale();
+        $('.map_pop .frame_g img').addClass('zoom_in');
+    });
+    $("#zoomOut").click(function() {
+        scale -= 0.05;
+        changeScale();
+    });
+    $("#zoomRefresh").click(function() {
+        scale = 1;
+        //localStorage.setItem(CMS.siteId+'.scale', scale);
+        $('.map_pop .frame_g img').removeClass('zoom_in');
+        $('.map_pop .frame_g img').css('transform','').css('transform-origin','');
+    });
+}
+
+function dragElement(elmnt) {
+    var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+    if (document.getElementById("zoomImg")) {
+        document.getElementById("zoomImg").onmousedown = dragMouseDown;
+    } else {
+        elmnt.onmousedown = dragMouseDown;
+    }
+
+    function dragMouseDown(e) {
+        e = e || window.event;
+        e.preventDefault();
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        document.onmouseup = closeDragElement;
+        document.onmousemove = elementDrag;
+    }
+
+    function elementDrag(e) {
+        e = e || window.event;
+        e.preventDefault();
+        pos1 = pos3 - e.clientX;
+        pos2 = pos4 - e.clientY;
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        // set the element's new position:
+        elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+    }
+
+    function closeDragElement() {
+        document.onmouseup = null;
+        document.onmousemove = null;
+    }
+}
+</script>
+                <footer>
+            <div class="inner_wrap">
+                <p class="copyrigth">COPYRIGHT ⓒ 2020 DAC. ALL RIGHTS RESERVED.</p>
+            </div>
+        </footer>
+            </div>
+</body>
+</html>
